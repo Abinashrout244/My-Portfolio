@@ -134,7 +134,7 @@ const Banner = () => {
             </button>
           </a>
           <a
-            href="https://drive.google.com/file/d/1q1lHOqrVon0cVt3muULvgn52X7KCvAQm/view?usp=drivesdk"
+            href="https://drive.google.com/file/d/1zEL7K67CU8GDD2dC3RPylt7edjnAk45J/view?usp=drivesdk"
             target="_blank"
           >
             <button className="py-2 px-4 bg-white rounded-full shadow shadow-slate-200 text-black font-semibold">
