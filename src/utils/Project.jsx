@@ -14,7 +14,7 @@ export const ProjectData = [
     title: "Ec-ShopCart",
     desc: "ShopCart is a simple and user-friendly shopping website that allows users to browse products, view details, and manage their cart with a clean and modern interface.",
     github: "https://github.com/Abinashrout244/AVI-Ec",
-    Deploy: "https://fascinating-travesseiro-7e8e6c.netlify.app/",
+    Deploy: "https://avi-ec-vmhw.vercel.app/",
     tech: [
       {
         text: "HTML",
