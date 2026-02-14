@@ -25,6 +25,6 @@ A modern, responsive, and animated portfolio website built to showcase my skills
 | **Animations**    | Framer Motion / CSS Animations                |
 | **Icons**         | FontAwesome / React Icons                     |
 | \*\*Email Handled | Email js                                      |
-| **Hosting**       | Netlify                                       |
+| **Hosting**       | Vercel                                        |
 
 ---
