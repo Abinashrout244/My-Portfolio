@@ -72,7 +72,7 @@ const Project = () => {
             <motion.li
               variants={card}
               key={item.id}
-              className="bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:scale-[1.01] transition"
+              className="bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:scale-[1.04] cursor-pointer transition hover:shadow-2xl hover:shadow-pink-500"
             >
               {/* Image */}
               <a href={item.Deploy} target="_blank">

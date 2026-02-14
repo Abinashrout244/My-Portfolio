@@ -5,8 +5,36 @@ import img4 from "../assets/images/tictactoe.png";
 import img5 from "../assets/images/weather.png";
 import img6 from "../assets/images/todo.png";
 import img7 from "../assets/images/ajtube.png";
+import img8 from "../assets/images/netflix.png";
 
 export const ProjectData = [
+  {
+    id: 112,
+    imgUrl: img8,
+    imgAlt: "Netflix",
+    title: "Netflix_Clone",
+    desc: "I developed a Netflix-inspired streaming platform using modern web technologies, integrating data from The Movie Database (TMDb) API to dynamically fetch and display movies and TV shows.",
+    github: "https://github.com/Abinashrout244/Netflix_clone",
+    Deploy:
+      "https://netflix-clone-jiun-kxtb9q9ot-abinash-routs-projects.vercel.app/",
+    tech: [
+      {
+        text: "HTML",
+      },
+      {
+        text: "TAILWIND CSS",
+      },
+      {
+        text: "REACT + VITE ",
+      },
+      {
+        text: "FIREBASE",
+      },
+      {
+        text: "TMDB Api",
+      },
+    ],
+  },
   {
     id: 1,
     imgUrl: img1,
