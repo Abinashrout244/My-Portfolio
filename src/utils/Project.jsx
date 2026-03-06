@@ -6,8 +6,38 @@ import img5 from "../assets/images/weather.png";
 import img6 from "../assets/images/todo.png";
 import img7 from "../assets/images/ajtube.png";
 import img8 from "../assets/images/netflix.png";
+import img9 from "../assets/images/Home.png";
 
 export const ProjectData = [
+  {
+    id: 113,
+    imgUrl: img9,
+    imgAlt: "Note App",
+    title: "Note_App",
+    desc: "I developed a full-stack Note Taking application where users can securely create, edit, and delete notes. The app includes authentication, protected routes, and real-time data management using modern MERN stack technologies.",
+    github: "https://github.com/Abinashrout244/Note_app",
+    Deploy: "https://note-app-lilac-two.vercel.app/",
+    tech: [
+      {
+        text: "React + Vite",
+      },
+      {
+        text: "Tailwind CSS",
+      },
+      {
+        text: "Node.js",
+      },
+      {
+        text: "Express.js",
+      },
+      {
+        text: "MongoDB",
+      },
+      {
+        text: "Redux Toolkit",
+      },
+    ],
+  },
   {
     id: 112,
     imgUrl: img8,

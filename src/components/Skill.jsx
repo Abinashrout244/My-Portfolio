@@ -23,8 +23,8 @@ const data = [
   {
     id: 4,
     text: "react",
-    percentage: "69%",
-    width: "69%",
+    percentage: "75%",
+    width: "75%",
   },
   {
     id: 5,
@@ -34,9 +34,21 @@ const data = [
   },
   {
     id: 6,
-    text: "NOde.js",
-    percentage: "10%",
-    width: "10%",
+    text: "NOdE.js",
+    percentage: "70%",
+    width: "70%",
+  },
+  {
+    id: 8,
+    text: "Express.js",
+    percentage: "60%",
+    width: "60%",
+  },
+  {
+    id: 6,
+    text: "Mongo DB",
+    percentage: "60%",
+    width: "60%",
   },
   {
     id: 1,
@@ -79,6 +91,14 @@ const skill = [
     id: 9,
     img: "https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=000000",
   },
+  {
+    id: 10,
+    img: "https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000",
+  },
+  {
+    id: 11,
+    img: "https://img.icons8.com/?size=100&id=kg46nzoJrmTR&format=png&color=ffffff",
+  },
 ];
 const toll = [
   {
@@ -98,6 +118,10 @@ const toll = [
     id: 5,
     img: "https://img.icons8.com/?size=100&id=24895&format=png&color=000000",
   },
+  {
+    id: 6,
+    img: "https://img.icons8.com/?size=100&id=QEQQKirln6Tf&format=png&color=000000",
+  },
 ];
 
 const optional = [
@@ -116,6 +140,10 @@ const optional = [
   {
     id: 4,
     img: "https://img.icons8.com/?size=100&id=e4pUQ752DRTk&format=png&color=000000",
+  },
+  {
+    id: 5,
+    img: "https://img.icons8.com/?size=100&id=iWw83PVcBpLw&format=png&color=000000",
   },
 ];
 
