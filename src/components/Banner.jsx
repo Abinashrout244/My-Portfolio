@@ -149,9 +149,18 @@ const Banner = () => {
         >
           {[
             { icon: faGithub, link: "https://github.com/Abinashrout244" },
-            { icon: faLinkedin, link: "https://linkedin.com/in/..." },
-            { icon: faXTwitter, link: "https://x.com/..." },
-            { icon: faInstagram, link: "https://instagram.com/..." },
+            {
+              icon: faLinkedin,
+              link: "https://www.linkedin.com/in/abinash-rout-274285322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+            },
+            {
+              icon: faXTwitter,
+              link: "https://x.com/AbinashRout2251?t=7EqFwIyXIWGtz9Fexrl0Yg&s=09",
+            },
+            {
+              icon: faInstagram,
+              link: "https://www.instagram.com/frequency._0.001?igsh=MTViOHE3eHNwZ3p1dQ==",
+            },
           ].map((item, i) => (
             <motion.a
               key={i}
