@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const data = [
   {
@@ -7,64 +7,74 @@ const data = [
     text: "HTML",
     percentage: "90%",
     width: "90%",
+    color: "from-orange-500 to-red-500",
   },
   {
     id: 2,
     text: "Css",
     percentage: "80%",
     width: "80%",
+    color: "from-blue-500 to-indigo-500",
   },
   {
     id: 3,
     text: "JAVA SCRIPT",
     percentage: "70%",
     width: "70%",
+    color: "from-yellow-400 to-orange-500",
   },
   {
     id: 4,
     text: "react",
     percentage: "75%",
     width: "75%",
+    color: "from-cyan-400 to-blue-500",
   },
   {
     id: 5,
     text: "Tailwind css",
     percentage: "77%",
     width: "77%",
+    color: "from-teal-400 to-cyan-500",
   },
   {
     id: 6,
     text: "NOdE.js",
     percentage: "70%",
     width: "70%",
+    color: "from-green-500 to-emerald-700",
   },
   {
-    id: 8,
+    id: 7,
     text: "Express.js",
     percentage: "60%",
     width: "60%",
+    color: "from-gray-300 to-gray-500",
   },
   {
-    id: 6,
+    id: 8,
     text: "Mongo DB",
     percentage: "60%",
     width: "60%",
+    color: "from-green-400 to-green-600",
   },
   {
-    id: 1,
-    text: "dsa",
+    id: 9,
+    text: "DSA",
     percentage: "30%",
     width: "30%",
+    color: "from-pink-500 to-rose-600",
   },
 ];
-const skill = [
+
+const skillIcons = [
   {
     id: 1,
-    img: "https://img.icons8.com/?size=100&id=20909&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=20909&format=png&color=ffffff",
   },
   {
     id: 2,
-    img: "https://img.icons8.com/?size=100&id=21278&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=21278&format=png&color=ffffff",
   },
   {
     id: 3,
@@ -72,226 +82,205 @@ const skill = [
   },
   {
     id: 4,
-    img: "https://img.icons8.com/?size=100&id=NfbyHexzVEDk&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=NfbyHexzVEDk&format=png&color=ffffff",
   },
   {
     id: 5,
-    img: "https://img.icons8.com/?size=100&id=WoopfRcDj3RF&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=WoopfRcDj3RF&format=png&color=ffffff",
   },
-
   {
     id: 7,
-    img: "https://img.icons8.com/?size=100&id=iEBcQcM9rnZ9&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=iEBcQcM9rnZ9&format=png&color=ffffff",
   },
   {
     id: 8,
-    img: "https://img.icons8.com/?size=100&id=FBycNmdwUQz1&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=FBycNmdwUQz1&format=png&color=ffffff",
   },
   {
     id: 9,
-    img: "https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=hsPbhkOH4FMe&format=png&color=ffffff",
   },
   {
     id: 10,
-    img: "https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png&color=ffffff",
   },
   {
     id: 11,
     img: "https://img.icons8.com/?size=100&id=kg46nzoJrmTR&format=png&color=ffffff",
   },
 ];
-const toll = [
+
+const toolIcons = [
   {
     id: 1,
-    img: "https://img.icons8.com/?size=100&id=v05jsvW3RprR&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=v05jsvW3RprR&format=png&color=ffffff",
   },
-
   {
     id: 2,
-    img: "https://img.icons8.com/?size=100&id=20906&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=20906&format=png&color=ffffff",
   },
   {
     id: 4,
-    img: "https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=zfHRZ6i1Wg0U&format=png&color=ffffff",
   },
   {
     id: 5,
-    img: "https://img.icons8.com/?size=100&id=24895&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=24895&format=png&color=ffffff",
   },
   {
     id: 6,
-    img: "https://img.icons8.com/?size=100&id=QEQQKirln6Tf&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=QEQQKirln6Tf&format=png&color=ffffff",
   },
 ];
 
-const optional = [
+const optionalIcons = [
   {
     id: 1,
-    img: "https://img.icons8.com/?size=100&id=l2v1nCw4goor&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=l2v1nCw4goor&format=png&color=ffffff",
   },
   {
     id: 2,
-    img: "https://img.icons8.com/?size=100&id=kwi0rSegAaX3&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=kwi0rSegAaX3&format=png&color=ffffff",
   },
   {
     id: 3,
-    img: "https://img.icons8.com/?size=100&id=FJCUJYTof2TA&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=FJCUJYTof2TA&format=png&color=ffffff",
   },
   {
     id: 4,
-    img: "https://img.icons8.com/?size=100&id=e4pUQ752DRTk&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=e4pUQ752DRTk&format=png&color=ffffff",
   },
   {
     id: 5,
-    img: "https://img.icons8.com/?size=100&id=iWw83PVcBpLw&format=png&color=000000",
+    img: "https://img.icons8.com/?size=100&id=iWw83PVcBpLw&format=png&color=ffffff",
   },
 ];
 
 const Skill = () => {
   const [tab, setTab] = useState("skill");
-  return (
-    <div
-      id="skill"
-      className="scroll-mt-24 h-screen px-2 md:px-28 pt-5 md:pt-16"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 bg-gradient-to-r from-gray-900 to-gray-700 rounded-lg p-3 md:p-5">
-        {/* LEFT SIDE */}
-        <div className="space-y-5 md:space-y-7 p-2 md:p-5">
-          <motion.h1
-            whileInView={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl md:text-4xl text-white font-bold uppercase text-center"
-          >
-            Tech Stack & Abilities I've
-          </motion.h1>
 
-          <ul className="space-y-4 md:space-y-5">
+  const getActiveData = () => {
+    if (tab === "skill") return skillIcons;
+    if (tab === "tool") return toolIcons;
+    return optionalIcons;
+  };
+
+  return (
+    <section
+      id="skill"
+      className="scroll-mt-24 min-h-screen px-6 md:px-20 lg:px-40 py-20 relative overflow-hidden"
+    >
+      {/* 1. SECTION HEADER */}
+      <div className="flex flex-col items-center mb-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="px-4 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-500 text-xs font-bold tracking-[0.3em] uppercase mb-4"
+        >
+          My Expertise
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-6xl font-black text-white tracking-tighter"
+        >
+          Tech Stack &{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 text-6xl italic">
+            Abilities.
+          </span>
+        </motion.h2>
+      </div>
+
+      {/* 2. MAIN CONTAINER */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10 p-8 md:p-12 shadow-2xl relative">
+        {/* Glowing Blobs */}
+        <div className="absolute -top-20 -left-20 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+        {/* LEFT SIDE: PROGRESS BARS */}
+        <div className="space-y-8">
+          <ul className="space-y-6">
             {data.map((item, index) => (
               <motion.li
-                whileInView={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: -100 }}
-                transition={{ duration: 0.5 }}
                 key={index}
-                className="space-y-2.5"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="space-y-3"
               >
-                <div className="flex flex-row justify-between px-1 md:px-2 text-sm md:text-[16px] font-semibold text-white/50">
-                  <h2 className="uppercase">{item.text}</h2>
-                  <span>{item.percentage}</span>
+                <div className="flex justify-between items-center text-xs font-bold tracking-widest uppercase">
+                  <span className="text-white">{item.text}</span>
+                  <span className="text-pink-500">{item.percentage}</span>
                 </div>
-
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div
-                    className="bg-blue-500 h-2 rounded-full"
-                    style={{ width: `${item.width}` }}
-                  ></div>
+                <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden border border-white/5">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: item.width }}
+                    transition={{ duration: 1.5, ease: "circOut" }}
+                    className={`h-full bg-gradient-to-r ${item.color} rounded-full shadow-[0_0_15px_rgba(236,72,153,0.3)]`}
+                  />
                 </div>
               </motion.li>
             ))}
           </ul>
         </div>
 
-        {/* RIGHT SIDE */}
-        <motion.div
-          whileInView={{ opacity: 1, x: 0 }}
-          initial={{ opacity: 0, x: 100 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col gap-4 md:gap-6 p-2 h-full w-full relative min-h-[400px]"
-        >
-          {/* BUTTONS */}
-          <motion.div
-            whileInView={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: -100 }}
-            transition={{ duration: 1 }}
-            className="absolute top-2 left-1/2 -translate-x-1/2 flex flex-row gap-2 md:gap-4 bg-slate-200 rounded-full px-2 py-1 md:p-2 z-20 overflow-x-auto whitespace-nowrap"
-          >
-            <button
-              className={`rounded-full px-6 py-1.5 md:px-10 md:py-2.5 ${
-                tab === "skill"
-                  ? "bg-gradient-to-r from-gray-900 to-gray-700 text-white"
-                  : "border border-slate-700"
-              }`}
-              onClick={() => setTab("skill")}
+        {/* RIGHT SIDE: INTERACTIVE GRID */}
+        <div className="flex flex-col gap-8 h-full">
+          {/* TABS SWITCHER */}
+          <div className="flex bg-[#0f172a] p-1.5 rounded-full border border-white/10 relative">
+            {["skill", "tool", "optional"].map((t) => (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                className={`flex-1 py-3 text-[10px] md:text-xs font-black uppercase tracking-widest relative z-10 transition-colors duration-500 ${
+                  tab === t ? "text-white" : "text-gray-500"
+                }`}
+              >
+                {t === "skill" ? "Skills" : t === "tool" ? "Tools" : "Optional"}
+              </button>
+            ))}
+            {/* Animated Background Slider */}
+            <motion.div
+              layoutId="tab-bg"
+              className="absolute inset-y-1.5 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-full"
+              animate={{
+                left:
+                  tab === "skill" ? "6px" : tab === "tool" ? "33.3%" : "66.6%",
+                width: "calc(33.3% - 8px)",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+          </div>
+
+          {/* GRID DISPLAY */}
+          <div className="flex-grow bg-[#0f172a]/50 rounded-[2rem] border border-white/5 p-8 backdrop-blur-sm min-h-[400px]">
+            <motion.div
+              layout
+              className="grid grid-cols-3 sm:grid-cols-4 gap-6"
             >
-              SKILL'S
-            </button>
-
-            <button
-              className={`rounded-full px-6 py-1.5 md:px-10 md:py-2.5 ${
-                tab === "tool"
-                  ? "bg-gradient-to-r from-gray-900 to-gray-700 text-white"
-                  : "border border-slate-700"
-              }`}
-              onClick={() => setTab("tool")}
-            >
-              TOOL"S
-            </button>
-
-            <button
-              className={`rounded-full px-6 py-1.5 md:px-10 md:py-2.5 ${
-                tab === "optional"
-                  ? "bg-gradient-to-r from-gray-900 to-gray-700 text-white"
-                  : "border border-slate-700"
-              }`}
-              onClick={() => setTab("optional")}
-            >
-              OPTIONAL
-            </button>
-          </motion.div>
-
-          {/* SKILL GRID */}
-          {tab === "skill" && (
-            <div className="grid grid-cols-3 gap-3 md:gap-6 bg-black rounded-xl h-full w-full p-3 md:p-6 pt-16 md:pt-20">
-              {skill.map((item) => (
-                <motion.div
-                  whileInView={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: 50 }}
-                  transition={{ duration: 0 }}
-                  key={item.id}
-                  className="flex justify-center items-center bg-slate-900 p-2 rounded-xl hover:bg-slate-800 transition duration-300 shadow-md hover:scale-105"
-                >
-                  <img src={item.img} className="w-10 h-10 md:w-14 md:h-14" />
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* TOOL GRID */}
-          {tab === "tool" && (
-            <div className="grid grid-cols-3 gap-3 md:gap-6 bg-black rounded-xl h-full w-full p-3 md:p-6 pt-16 md:pt-20">
-              {toll.map((item) => (
-                <motion.div
-                  whileInView={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: 50 }}
-                  transition={{ duration: 0 }}
-                  key={item.id}
-                  className="flex justify-center items-center bg-slate-900 p-2 rounded-xl hover:bg-slate-800 transition duration-300 shadow-md hover:scale-105"
-                >
-                  <img src={item.img} className="w-10 h-10 md:w-14 md:h-14" />
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* OPTIONAL GRID */}
-          {tab === "optional" && (
-            <div className="grid grid-cols-3 gap-3 md:gap-6 bg-black rounded-xl h-full w-full p-3 md:p-6 pt-16 md:pt-20">
-              {optional.map((item) => (
-                <motion.div
-                  whileInView={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: 50 }}
-                  transition={{ duration: 0 }}
-                  key={item.id}
-                  className="flex justify-center items-center bg-slate-900 p-2 rounded-xl hover:bg-slate-800 transition duration-300 shadow-md hover:scale-105"
-                >
-                  <img src={item.img} className="w-10 h-10 md:w-14 md:h-14" />
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </motion.div>
+              <AnimatePresence mode="wait">
+                {getActiveData().map((item) => (
+                  <motion.div
+                    key={`${tab}-${item.id}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    whileHover={{ scale: 1.1, rotate: 5, y: -5 }}
+                    className="aspect-square flex justify-center items-center bg-white/5 border border-white/10 rounded-2xl hover:bg-pink-500 transition-all duration-300 group shadow-lg"
+                  >
+                    <img
+                      src={item.img}
+                      className="w-10 h-10 md:w-12 md:h-12 group-hover:brightness-200 transition-all"
+                      alt="skill-icon"
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

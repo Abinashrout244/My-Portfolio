@@ -7,7 +7,7 @@ import Contact from "./Contact";
 
 const Home = () => {
   return (
-    <div className="bg-gradient-to-br pb-36 from-[#050510] via-[#0a1a3a] to-[#1e3a8a] h-full">
+    <div className="bg-linear-to-br pb-36 from-[#050510] via-[#0a1a3a] to-[#1e3a8a] h-full">
       <Banner />
       <About />
       <Skill />
