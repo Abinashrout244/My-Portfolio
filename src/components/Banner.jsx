@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "../context/ThemeContext";
 import Particles from "./Particles";
 import TextType from "./TextType";
+import { useState } from "react";
 import {
   faGithub,
   faLinkedin,
@@ -11,7 +12,8 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 
-import img from "../assets/images/gibli-removebg-preview.png";
+import hoverimg from "../assets/images/gibli-removebg-preview.png";
+import img from "../assets/images/anime.png";
 
 const Banner = () => {
   const { theme } = useTheme();
@@ -25,6 +27,7 @@ const Banner = () => {
       transition: { duration: 0.6, delay: delay, ease: "easeOut" },
     },
   });
+  const [isHovered, setIsHovered] = useState(false);
 
   const socialVariants = {
     initial: { scale: 1 },
@@ -201,8 +204,11 @@ const Banner = () => {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="relative z-10 w-full md:w-2/5 flex justify-center items-end h-[50vh] md:h-[80vh] mt-12 md:mt-0"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative z-10 w-full md:w-2/5 flex justify-center items-end h-[50vh] md:h-[80vh] mt-12 md:mt-0 cursor-pointer"
       >
+        {/* The Glow Background */}
         <div
           className={`absolute inset-0 rounded-full blur-[100px] z-0 transition-all duration-500 bg-gradient-to-t ${
             isDark
@@ -210,17 +216,37 @@ const Banner = () => {
               : "from-pink-600/20 to-transparent"
           }`}
         />
-        <motion.img
-          whileHover={{ y: -10, rotate: 1 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          src={img}
-          alt="Abinash Rout"
-          className={`relative z-10 object-contain h-full transition-all duration-500 ${
-            isDark
-              ? "drop-shadow-[0_20px_50px_rgba(255,255,255,0.05)]"
-              : "drop-shadow-[0_20px_50px_rgba(219,39,119,0.4)]"
-          }`}
-        />
+
+        <div className="relative w-full h-full flex justify-center items-end">
+          {/* PRIMARY IMAGE */}
+          <motion.img
+            src={img} // Your original image
+            alt="Abinash Rout"
+            animate={{
+              opacity: isHovered ? 0 : 1,
+              filter: isHovered
+                ? "blur(10px) brightness(1.2)"
+                : "blur(0px) brightness(1)",
+              scale: isHovered ? 1.05 : 1,
+            }}
+            transition={{ duration: 0.4 }}
+            className="relative z-10 object-contain h-full"
+          />
+
+          {/* HOVER IMAGE (The new one) */}
+          <motion.img
+            src={hoverimg} // The image you want to show on hover
+            alt="Abinash Hover"
+            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
+            animate={{
+              opacity: isHovered ? 1 : 0,
+              filter: isHovered ? "blur(0px)" : "blur(10px)",
+              scale: isHovered ? 1 : 0.95,
+            }}
+            transition={{ duration: 0.4 }}
+            className="absolute z-20 object-contain h-full"
+          />
+        </div>
       </motion.div>
     </section>
   );
