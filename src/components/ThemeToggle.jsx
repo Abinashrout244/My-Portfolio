@@ -20,14 +20,14 @@ const ThemeToggle = () => {
       {/* Icon Container with a subtle rotate effect */}
       <div className="relative transition-transform duration-500 flex items-center justify-center">
         {isDark ? (
-          <Sun
-            size={18}
-            className="animate-in fade-in zoom-in spin-in-90 duration-300"
-          />
-        ) : (
           <Moon
             size={18}
             className="animate-in fade-in zoom-in spin-in-45 duration-300 text-blue-200"
+          />
+        ) : (
+          <Sun
+            size={18}
+            className="animate-in fade-in zoom-in spin-in-90 duration-300"
           />
         )}
       </div>
