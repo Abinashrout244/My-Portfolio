@@ -130,7 +130,7 @@ const Banner = () => {
           </a>
 
           <a
-            href="https://drive.google.com/file/d/1zEL7K67CU8GDD2dC3RPylt7edjnAk45J/view?usp=drivesdk"
+            href="https://drive.google.com/uc?export=download&id=1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD"
             target="_blank"
             rel="noreferrer"
           >

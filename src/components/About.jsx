@@ -45,29 +45,65 @@ const About = () => {
           className="w-full md:w-[45%] flex flex-col items-center justify-center relative"
         >
           {/* Main Image Glass Container */}
-          <div className="relative group p-2 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-            <div className="rounded-[2rem] overflow-hidden bg-[#0f172a]">
-              <img
-                src={img}
-                alt="Abinash Rout"
-                className="h-[350px] md:h-[500px] lg:h-[550px] w-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 ease-in-out group-hover:scale-105"
-              />
+          {/* Main Image 3D Flip Container */}
+          <div className="relative group w-[300px] md:w-[400px] lg:w-[450px] [perspective:1500px]">
+            <div className="relative w-full h-[350px] md:h-[500px] lg:h-[550px] transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              {/* FRONT SIDE (Anime/Illustration) */}
+              <div className="absolute inset-0 [backface-visibility:hidden] p-2 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-white/10 shadow-2xl">
+                {/* Shine Effect (from your original code) */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+                <div className="rounded-[2rem] overflow-hidden bg-[#0f172a] h-full w-full">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/021/907/517/large_2x/anime-boy-avatar-ai-generative-art-ai-generation-art-photo.jpg" // Replace with your Anime image path
+                    alt="Avi Anime"
+                    className="h-full w-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                  />
+                </div>
+              </div>
+
+              {/* BACK SIDE (Real Photo) */}
+              <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] p-2 bg-white/5 backdrop-blur-md rounded-[2.5rem] border border-pink-500/20 shadow-2xl">
+                <div className="rounded-[2rem] overflow-hidden bg-[#0f172a] h-full w-full">
+                  <img
+                    src={img} // Your Real photo
+                    alt="Abinash Rout Real"
+                    className="h-full w-full object-cover group-hover:scale-105 transition-all duration-700 ease-in-out"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Floating Role Badge */}
+          {/* Floating Role Badge with 3D Flip */}
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="bg-[#0f172a]/80 backdrop-blur-2xl border border-white/20 py-4 px-8 w-[240px] md:w-[320px] z-20 text-center -mt-10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+            className="relative z-20 -mt-10 w-[240px] md:w-[320px] h-[80px] md:h-[100px] [perspective:1000px] cursor-pointer group"
           >
-            <h2 className="text-white text-lg font-bold tracking-tighter">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500 text-2xl block font-black uppercase tracking-[0.2em]">
-                FRONTEND
-              </span>
-              DEVELOPER
-            </h2>
+            {/* The Inner Card that actually rotates */}
+            <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              {/* FRONT SIDE (Frontend Developer) */}
+              <div className="absolute inset-0 backface-hidden [backface-visibility:hidden] bg-[#0f172a]/80 backdrop-blur-2xl border border-white/20 flex flex-col items-center justify-center rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <h2 className="text-white text-center text-lg font-bold tracking-tighter">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500 text-2xl block font-black uppercase tracking-[0.2em]">
+                    FRONTEND
+                  </span>
+                  DEVELOPER
+                </h2>
+              </div>
+
+              {/* BACK SIDE (Fullstack Developer) */}
+              <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-[#0f172a]/90 backdrop-blur-2xl border border-indigo-500/40 flex flex-col items-center justify-center rounded-[2rem] shadow-[0_20px_50px_rgba(79,70,229,0.3)]">
+                <h2 className="text-white text-center text-lg font-bold tracking-tighter">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-500 text-2xl block font-black uppercase tracking-[0.2em]">
+                    FULLSTACK
+                  </span>
+                  DEVELOPER
+                </h2>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 

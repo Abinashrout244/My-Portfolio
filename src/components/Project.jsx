@@ -12,11 +12,16 @@ const parent = {
 };
 
 const card = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 20 },
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 20,
+    },
   },
 };
 
@@ -92,59 +97,96 @@ const Project = () => {
               layout
               variants={card}
               initial="hidden"
-              animate="show"
+              whileInView="show" // Trigger when scrolled into view
+              viewport={{ once: true, amount: 0.2 }}
               exit={{ opacity: 0, scale: 0.9 }}
+              whileHover={{ y: -10 }} // Lifts the card up on hover
+              transition={{ duration: 0.4 }}
               key={item.id}
-              className="group relative bg-white/5 backdrop-blur-xl rounded-4xl overflow-hidden border border-white/10 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/50 transition-all duration-500 shadow-2xl flex flex-col h-full"
+              className="group relative bg-[#0f172a]/40 backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-white/5 hover:border-pink-500/30 transition-all duration-700 shadow-2xl flex flex-col h-full"
             >
-              <div className="relative overflow-hidden h-[220px]">
-                <a href={item.Deploy} target="_blank" rel="noreferrer">
+              {/* TOP IMAGE SECTION */}
+              <div className="relative overflow-hidden h-[240px] m-3 rounded-[1.8rem]">
+                <a
+                  href={item.Deploy}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block h-full"
+                >
                   <img
                     src={item.imgUrl}
                     alt={item.imgAlt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
                   />
+
+                  {/* Overlay Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-80" />
                 </a>
+
+                {/* ENHANCED TECH STACK - Floating Glass Pills */}
+                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-1.5 z-20 pointer-events-none">
+                  {item.tech.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 text-[10px] font-bold text-white/90 uppercase tracking-tighter bg-white/10 backdrop-blur-xl border border-white/10 rounded-full shadow-sm transform transition-all duration-500 group-hover:bg-pink-500 group-hover:border-pink-400 group-hover:-translate-y-1"
+                      style={{ transitionDelay: `${index * 40}ms` }}
+                    >
+                      {skill.text}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Live Status Indicator */}
+                <div className="absolute top-4 right-4 px-3 py-1 bg-green-500/10 border border-green-500/20 backdrop-blur-md rounded-full flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest">
+                    Live
+                  </span>
+                </div>
               </div>
 
-              <div className="p-6 flex flex-col grow">
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-pink-500 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 grow line-clamp-3">
+              {/* BOTTOM CONTENT SECTION */}
+              <div className="p-7 pt-2 flex flex-col grow">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-2xl font-black text-white tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-500 group-hover:to-indigo-500 transition-all duration-300">
+                    {item.title}
+                  </h3>
+                  <span className="text-[10px] text-white/20 font-mono mt-2 uppercase tracking-widest">
+                    #{item.id}
+                  </span>
+                </div>
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-8 grow line-clamp-2 font-medium">
                   {item.desc}
                 </p>
 
-                <div className="flex items-center justify-between border-t border-white/5 pt-5">
-                  <div className="flex gap-4">
+                {/* ACTION BUTTONS */}
+                <div className="flex items-center justify-between mt-auto">
+                  <div className="flex gap-3">
                     <a
                       href={item.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2.5 bg-white/5 rounded-full hover:bg-white hover:text-black transition-all duration-300 border border-white/10"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl hover:bg-white hover:text-black transition-all duration-300 border border-white/10 text-[11px] font-bold uppercase tracking-wider"
                     >
+                      Source
                       <img
                         src="https://img.icons8.com/?size=100&id=0tREDFkScvsm&format=png&color=000000"
-                        className="w-5 h-5 invert"
+                        className="w-4 h-4 invert group-hover:invert-0 transition-all"
                         alt="GitHub"
                       />
                     </a>
+
                     <a
                       href={item.Deploy}
                       target="_blank"
                       rel="noreferrer"
-                      className="p-2.5 bg-pink-500 rounded-full hover:bg-white hover:text-pink-500 transition-all duration-300 shadow-lg shadow-pink-500/20"
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-xl hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-500/20 text-[11px] font-bold uppercase tracking-wider text-white"
                     >
-                      <img
-                        src="https://img.icons8.com/?size=100&id=21104&format=png&color=000000"
-                        className="w-5 h-5 invert"
-                        alt="Deploy"
-                      />
+                      Preview
+                      <ArrowDown size={14} className="-rotate-135" />
                     </a>
                   </div>
-                  <span className="text-[10px] text-gray-500 font-mono tracking-widest uppercase">
-                    Project.0{item.id}
-                  </span>
                 </div>
               </div>
             </motion.li>
