@@ -13,10 +13,14 @@ import {
   faXTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scroll, setScroll] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     const handleScroll = () => setScroll(window.scrollY > 50);
@@ -38,19 +42,31 @@ const Header = () => {
         <div
           className={`mx-auto max-w-7xl flex justify-between items-center px-6 py-3 rounded-2xl transition-all duration-500 ${
             scroll || isOpen
-              ? "bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)]"
+              ? isDark
+                ? "bg-[#1e1e1e]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+                : "bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl"
               : "bg-transparent"
           }`}
         >
           {/* LOGO */}
           <div className="flex items-center gap-3 group relative z-[1002]">
-            <div className="relative bg-[#0f172a] p-2 rounded-lg border border-white/10">
+            <div
+              className={`relative p-2 rounded-lg border transition-colors duration-500 ${
+                isDark
+                  ? "bg-[#121212] border-white/10"
+                  : "bg-white/10 border-white/20"
+              }`}
+            >
               <FontAwesomeIcon
                 icon={faCode}
-                className="text-pink-500 text-xl"
+                className={`text-xl transition-colors ${isDark ? "text-gray-400" : "text-pink-500"}`}
               />
             </div>
-            <h2 className="text-xl font-black tracking-tighter text-white uppercase italic">
+            <h2
+              className={`text-xl font-black tracking-tighter uppercase italic transition-colors ${
+                isDark ? "text-[#e0e0e0]" : "text-white"
+              }`}
+            >
               Avi Dev
             </h2>
           </div>
@@ -61,10 +77,18 @@ const Header = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-xs font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-all duration-300 relative group"
+                className={`text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 relative group ${
+                  isDark
+                    ? "text-gray-400 hover:text-white"
+                    : "text-white/70 hover:text-white"
+                }`}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-[2px] bg-pink-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+                <span
+                  className={`absolute -bottom-1 left-1/2 w-0 h-[2px] transition-all duration-300 group-hover:w-full group-hover:left-0 ${
+                    isDark ? "bg-gray-400" : "bg-pink-500"
+                  }`}
+                ></span>
               </a>
             ))}
           </nav>
@@ -76,17 +100,35 @@ const Header = () => {
               target="_blank"
               className="hidden sm:block"
             >
-              <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold text-white rounded-full group bg-gradient-to-br from-pink-500 to-indigo-500">
-                <span className="relative px-5 py-2 transition-all ease-in duration-75 bg-[#0f172a] rounded-full group-hover:bg-opacity-0">
+              <button
+                className={`relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-full group transition-all ${
+                  isDark
+                    ? "bg-gray-600"
+                    : "bg-gradient-to-br from-pink-500 to-indigo-500"
+                }`}
+              >
+                <span
+                  className={`relative px-5 py-2 transition-all ease-in duration-75 rounded-full group-hover:bg-opacity-0 ${
+                    isDark
+                      ? "bg-[#121212] text-gray-300"
+                      : "bg-[#0f172a] text-white"
+                  }`}
+                >
                   RESUME
                   <FontAwesomeIcon icon={faLink} className="ml-2 text-xs" />
                 </span>
               </button>
             </a>
 
+            <ThemeToggle />
+
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white w-10 h-10 flex items-center justify-center bg-white/10 rounded-xl border border-white/10 active:scale-90 transition-transform"
+              className={`md:hidden w-10 h-10 flex items-center justify-center rounded-xl border active:scale-90 transition-all ${
+                isDark
+                  ? "bg-[#1e1e1e] border-white/10 text-white"
+                  : "bg-white/10 border-white/20 text-white"
+              }`}
             >
               <FontAwesomeIcon icon={isOpen ? faXmark : faBars} size="lg" />
             </button>
@@ -98,7 +140,6 @@ const Header = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -107,18 +148,23 @@ const Header = () => {
               className="fixed inset-0 z-[998] bg-black/70 backdrop-blur-md md:hidden"
             />
 
-            {/* Side Drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-screen w-[80%] sm:w-[60%] z-[999] bg-[#0f172a] border-l border-white/10 shadow-2xl flex flex-col p-10 pt-32 md:hidden"
+              className={`fixed top-0 right-0 h-screen w-[80%] sm:w-[60%] z-[999] border-l shadow-2xl flex flex-col p-10 pt-32 md:hidden transition-colors duration-500 ${
+                isDark
+                  ? "bg-[#121212] border-white/10"
+                  : "bg-[#0a1a3a] border-white/10"
+              }`}
             >
-              <div className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none bg-[radial-gradient(circle_at_top_right,#db2777,transparent)]"></div>
-
               <div className="mb-10">
-                <span className="text-pink-500 font-mono text-sm tracking-widest uppercase">
+                <span
+                  className={`font-mono text-sm tracking-widest uppercase transition-colors ${
+                    isDark ? "text-gray-500" : "text-pink-500"
+                  }`}
+                >
                   Navigation
                 </span>
               </div>
@@ -134,9 +180,15 @@ const Header = () => {
                     <a
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="group flex items-center gap-4 text-3xl font-bold text-white hover:text-pink-500 transition-all tracking-tight"
+                      className={`group flex items-center gap-4 text-3xl font-bold transition-all tracking-tight ${
+                        isDark
+                          ? "text-white hover:text-gray-400"
+                          : "text-white hover:text-pink-500"
+                      }`}
                     >
-                      <span className="text-xs font-mono text-pink-500 opacity-50">
+                      <span
+                        className={`text-xs font-mono opacity-50 ${isDark ? "text-gray-500" : "text-pink-500"}`}
+                      >
                         0{i + 1}
                       </span>
                       {link.name}
@@ -155,26 +207,18 @@ const Header = () => {
                   Let's Connect
                 </p>
                 <div className="flex gap-6">
-                  {[
-                    {
-                      icon: faGithub,
-                      link: "https://github.com/Abinashrout244",
-                    },
-                    { icon: faLinkedin, link: "https://linkedin.com/in/..." },
-                    { icon: faXTwitter, link: "https://x.com/..." },
-                    { icon: faInstagram, link: "https://instagram.com/..." },
-                  ].map((item, index) => {
-                    return (
+                  {/* Social links stay white with theme-based hover */}
+                  {[faGithub, faLinkedin, faXTwitter, faInstagram].map(
+                    (icon, index) => (
                       <a
                         key={index}
-                        href={item.link}
-                        target="_blank"
-                        className="text-white/60 hover:text-pink-500 transition-colors"
+                        href="#"
+                        className={`transition-colors ${isDark ? "text-gray-500 hover:text-white" : "text-white/60 hover:text-pink-500"}`}
                       >
-                        <FontAwesomeIcon icon={item.icon} size="lg" />
+                        <FontAwesomeIcon icon={icon} size="lg" />
                       </a>
-                    );
-                  })}
+                    ),
+                  )}
                 </div>
               </motion.div>
             </motion.div>

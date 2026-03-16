@@ -138,8 +138,7 @@ export const ProjectData = [
     title: "TicTacToe",
     desc: "A simple Tic-Tac-Toe game built with clean UI and smooth gameplay, allowing two players to compete with instant win detection.",
     github: "https://github.com/Abinashrout244/Tic-Tac-Toe-app-v0",
-    Deploy:
-      "https://tic-tac-toe-app-v0-idw88lkuq-abinash-routs-projects.vercel.app/",
+    Deploy: "https://tic-tac-toe-app-v0.vercel.app/",
     tech: [
       {
         text: "HTML",

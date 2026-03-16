@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 const data = [
   {
@@ -158,6 +159,8 @@ const optionalIcons = [
 
 const Skill = () => {
   const [tab, setTab] = useState("skill");
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const getActiveData = () => {
     if (tab === "skill") return skillIcons;
@@ -168,33 +171,52 @@ const Skill = () => {
   return (
     <section
       id="skill"
-      className="scroll-mt-24 min-h-screen px-6 md:px-20 lg:px-40 py-20 relative overflow-hidden"
+      className={`scroll-mt-24 min-h-screen px-6 md:px-20 lg:px-40 py-20 relative overflow-hidden transition-all duration-700 bg-transparent 
+      ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
     >
       {/* 1. SECTION HEADER */}
       <div className="flex flex-col items-center mb-16 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="px-4 py-1 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-500 text-xs font-bold tracking-[0.3em] uppercase mb-4"
+          className={`px-4 py-1 rounded-full border text-xs font-bold tracking-[0.3em] uppercase mb-4 transition-colors ${
+            isDark
+              ? "border-gray-700 bg-gray-800/30 text-gray-400"
+              : "border-pink-500/30 bg-pink-500/10 text-pink-500"
+          }`}
         >
           My Expertise
         </motion.div>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-black text-white tracking-tighter"
+          className="text-4xl md:text-6xl font-black tracking-tighter"
         >
           Tech Stack &{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 text-6xl italic">
+          <span
+            className={`italic bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500 ${
+              isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"
+            }`}
+          >
             Abilities.
           </span>
         </motion.h2>
       </div>
 
-      {/* 2. MAIN CONTAINER */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white/5 backdrop-blur-xl rounded-[3rem] border border-white/10 p-8 md:p-12 shadow-2xl relative">
+      {/* 2. MAIN CONTAINER - Glassmorphism Update */}
+      <div
+        className={`grid grid-cols-1 lg:grid-cols-2 gap-12 backdrop-blur-xl rounded-[3rem] border p-8 md:p-12 shadow-2xl relative transition-all duration-500 ${
+          isDark
+            ? "bg-[#1e1e1e]/60 border-white/10"
+            : "bg-white/10 border-white/20"
+        }`}
+      >
         {/* Glowing Blobs */}
-        <div className="absolute -top-20 -left-20 w-64 h-64 bg-pink-500/10 rounded-full blur-[100px] pointer-events-none" />
+        <div
+          className={`absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[100px] pointer-events-none transition-colors ${
+            isDark ? "bg-gray-500/5" : "bg-pink-500/10"
+          }`}
+        />
 
         {/* LEFT SIDE: PROGRESS BARS */}
         <div className="space-y-8">
@@ -208,15 +230,25 @@ const Skill = () => {
                 className="space-y-3"
               >
                 <div className="flex justify-between items-center text-xs font-bold tracking-widest uppercase">
-                  <span className="text-white">{item.text}</span>
-                  <span className="text-pink-500">{item.percentage}</span>
+                  <span className={isDark ? "text-gray-300" : "text-white"}>
+                    {item.text}
+                  </span>
+                  <span className={isDark ? "text-gray-400" : "text-pink-400"}>
+                    {item.percentage}
+                  </span>
                 </div>
-                <div className="w-full bg-white/5 rounded-full h-2 overflow-hidden border border-white/5">
+                <div
+                  className={`w-full rounded-full h-2 overflow-hidden border transition-colors ${
+                    isDark
+                      ? "bg-[#121212] border-white/5"
+                      : "bg-white/10 border-white/10"
+                  }`}
+                >
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: item.width }}
                     transition={{ duration: 1.5, ease: "circOut" }}
-                    className={`h-full bg-gradient-to-r ${item.color} rounded-full shadow-[0_0_15px_rgba(236,72,153,0.3)]`}
+                    className={`h-full bg-gradient-to-r ${item.color} rounded-full`}
                   />
                 </div>
               </motion.li>
@@ -227,22 +259,36 @@ const Skill = () => {
         {/* RIGHT SIDE: INTERACTIVE GRID */}
         <div className="flex flex-col gap-8 h-full">
           {/* TABS SWITCHER */}
-          <div className="flex bg-[#0f172a] p-1.5 rounded-full border border-white/10 relative">
+          <div
+            className={`flex p-1.5 rounded-full border relative transition-colors ${
+              isDark
+                ? "bg-[#121212] border-white/10"
+                : "bg-black/20 border-white/10"
+            }`}
+          >
             {["skill", "tool", "optional"].map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
                 className={`flex-1 py-3 text-[10px] md:text-xs font-black uppercase tracking-widest relative z-10 transition-colors duration-500 ${
-                  tab === t ? "text-white" : "text-gray-500"
+                  tab === t
+                    ? "text-white"
+                    : isDark
+                      ? "text-gray-500"
+                      : "text-white/40"
                 }`}
               >
                 {t === "skill" ? "Skills" : t === "tool" ? "Tools" : "Optional"}
               </button>
             ))}
-            {/* Animated Background Slider */}
+
             <motion.div
               layoutId="tab-bg"
-              className="absolute inset-y-1.5 bg-gradient-to-r from-pink-600 to-indigo-600 rounded-full"
+              className={`absolute inset-y-1.5 rounded-full ${
+                isDark
+                  ? "bg-gradient-to-r from-gray-600 to-gray-500"
+                  : "bg-gradient-to-r from-pink-600 to-indigo-600"
+              }`}
               animate={{
                 left:
                   tab === "skill" ? "6px" : tab === "tool" ? "33.3%" : "66.6%",
@@ -253,7 +299,13 @@ const Skill = () => {
           </div>
 
           {/* GRID DISPLAY */}
-          <div className="flex-grow bg-[#0f172a]/50 rounded-[2rem] border border-white/5 p-8 backdrop-blur-sm min-h-[400px]">
+          <div
+            className={`flex-grow rounded-[2rem] border p-8 backdrop-blur-sm min-h-[400px] transition-colors ${
+              isDark
+                ? "bg-[#121212]/50 border-white/5"
+                : "bg-[#0f172a]/50 g-white/5 border border-white/10 "
+            }`}
+          >
             <motion.div
               layout
               className="grid grid-cols-3 sm:grid-cols-4 gap-6"
@@ -266,11 +318,19 @@ const Skill = () => {
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     exit={{ opacity: 0, scale: 0.5 }}
                     whileHover={{ scale: 1.1, rotate: 5, y: -5 }}
-                    className="aspect-square flex justify-center items-center bg-white/5 border border-white/10 rounded-2xl hover:bg-pink-500 transition-all duration-300 group shadow-lg"
+                    className={`aspect-square flex justify-center items-center border rounded-2xl transition-all duration-300 group shadow-lg ${
+                      isDark
+                        ? "bg-[#1e1e1e] border-white/10 hover:bg-gray-700"
+                        : "bg-white/10 border-white/20 hover:bg-pink-500"
+                    }`}
                   >
                     <img
                       src={item.img}
-                      className="w-10 h-10 md:w-12 md:h-12 group-hover:brightness-200 transition-all"
+                      className={`w-10 h-10 md:w-12 md:h-12 transition-all ${
+                        isDark
+                          ? "opacity-80 group-hover:opacity-100"
+                          : "group-hover:brightness-200 transition-all"
+                      }`}
                       alt="skill-icon"
                     />
                   </motion.div>
