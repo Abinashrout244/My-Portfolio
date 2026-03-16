@@ -10,7 +10,7 @@ import img9 from "../assets/images/Home.png";
 
 export const ProjectData = [
   {
-    id: 113,
+    id: 9,
     imgUrl: img9,
     imgAlt: "Note App",
     title: "Note_App",
@@ -39,7 +39,7 @@ export const ProjectData = [
     ],
   },
   {
-    id: 112,
+    id: 8,
     imgUrl: img8,
     imgAlt: "Netflix",
     title: "Netflix_Clone",
