@@ -226,9 +226,7 @@ const Footer = () => {
             </motion.div>
             <h2 className="text-3xl font-black text-white italic tracking-tighter">
               Avi
-              <span className={isDark ? "text-gray-400" : "text-pink-500"}>
-                .
-              </span>
+             
               Dev
             </h2>
           </div>
