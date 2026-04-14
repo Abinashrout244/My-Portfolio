@@ -151,16 +151,22 @@ export const ProjectData = [
     title: "FlowerShop",
     desc: "A charming Flower Shop website offering a variety of fresh blooms, elegant bouquets, and seasonal arrangements with a simple, user-friendly browsing experience",
     github: "https://github.com/Abinashrout244/Flowershop-web-v0",
-    Deploy: "https://dreamy-gaufre-678ada.netlify.app/",
+    Deploy: "https://flowershop-web-v0-owzr.vercel.app/",
     tech: [
-      {
-        text: "HTML",
-      },
       {
         text: "TAILWIND CSS",
       },
       {
         text: "REACT + VITE ",
+      },
+      {
+        text: "Swiper",
+      },
+      {
+        text: "Framer-motion ",
+      },
+      {
+        text: "Lucide-react",
       },
     ],
   },
