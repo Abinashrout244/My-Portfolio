@@ -7,8 +7,41 @@ import img6 from "../assets/images/todo.png";
 import img7 from "../assets/images/ajtube.png";
 import img8 from "../assets/images/netflix.png";
 import img9 from "../assets/images/Home.png";
+import img10 from "../assets/images/chat.png";
 
 export const ProjectData = [
+  {
+    id: 10,
+    imgUrl: img10,
+    imgAlt: "Chat App",
+    title: "RealTime Chat_App",
+    desc: "A full-stack real-time chat application built with the MERN stack (MongoDB, Express.js, React, Node.js) and Socket.io for instant messaging. Features user authentication, profile management, and live chat with online status updates.",
+    github: "https://github.com/Abinashrout244/ChattAPP",
+    Deploy: "https://chatt-app-iota.vercel.app/",
+    tech: [
+      {
+        text: "React + Vite",
+      },
+      {
+        text: "Framer Motion + GSAP ",
+      },
+      {
+        text: "ReactBits",
+      },
+      {
+        text: "Node.js",
+      },
+      {
+        text: "Express.js",
+      },
+      {
+        text: "MongoDB",
+      },
+      {
+        text: "Socket.io",
+      },
+    ],
+  },
   {
     id: 9,
     imgUrl: img9,
@@ -88,29 +121,29 @@ export const ProjectData = [
       },
     ],
   },
-  {
-    id: 2,
-    imgUrl: img2,
-    imgAlt: "FakeAPI",
-    title: "FakeAPI",
-    desc: "Fake API is a clean shopping app that fetches product data from FakeAPI, letting users browse items, view details, and manage their cart easily.",
-    github: "https://github.com/Abinashrout244/FAKe_API_V0",
-    Deploy: "https://fa-ke-api-v0.vercel.app/",
-    tech: [
-      {
-        text: "HTML",
-      },
-      {
-        text: "TAILWIND CSS",
-      },
-      {
-        text: "REACT + VITE ",
-      },
-      {
-        text: "FAKE API",
-      },
-    ],
-  },
+  // {
+  //   id: 2,
+  //   imgUrl: img2,
+  //   imgAlt: "FakeAPI",
+  //   title: "FakeAPI",
+  //   desc: "Fake API is a clean shopping app that fetches product data from FakeAPI, letting users browse items, view details, and manage their cart easily.",
+  //   github: "https://github.com/Abinashrout244/FAKe_API_V0",
+  //   Deploy: "https://fa-ke-api-v0.vercel.app/",
+  //   tech: [
+  //     {
+  //       text: "HTML",
+  //     },
+  //     {
+  //       text: "TAILWIND CSS",
+  //     },
+  //     {
+  //       text: "REACT + VITE ",
+  //     },
+  //     {
+  //       text: "FAKE API",
+  //     },
+  //   ],
+  // },
   {
     id: 3,
     imgUrl: img3,
@@ -151,46 +184,46 @@ export const ProjectData = [
       },
     ],
   },
-  {
-    id: 5,
-    imgUrl: img5,
-    imgAlt: "Weather",
-    title: "Weather",
-    desc: "A sleek Weather App that fetches real-time temperature, conditions, and location data using a weather API, providing a fast and intuitive user experience.",
-    github: "https://github.com/Abhi994-hub/Weather-API_",
-    Deploy: "https://abhi994-hub.github.io/Weather-API_/",
-    tech: [
-      {
-        text: "HTML",
-      },
-      {
-        text: "TAILWIND CSS",
-      },
-      {
-        text: "JS",
-      },
-    ],
-  },
-  {
-    id: 6,
-    imgUrl: img6,
-    imgAlt: "Todo",
-    title: "Todo List",
-    desc: "A simple and efficient To-Do List app for adding, managing, and tracking daily tasks with smooth UI and real-time updates for better productivity.",
-    github: "https://github.com/Abinashrout244/my-To-Do-App",
-    Deploy: "https://abinashrout244.github.io/my-To-Do-App/",
-    tech: [
-      {
-        text: "HTML",
-      },
-      {
-        text: "TAILWIND CSS",
-      },
-      {
-        text: "JS",
-      },
-    ],
-  },
+  // {
+  //   id: 5,
+  //   imgUrl: img5,
+  //   imgAlt: "Weather",
+  //   title: "Weather",
+  //   desc: "A sleek Weather App that fetches real-time temperature, conditions, and location data using a weather API, providing a fast and intuitive user experience.",
+  //   github: "https://github.com/Abhi994-hub/Weather-API_",
+  //   Deploy: "https://abhi994-hub.github.io/Weather-API_/",
+  //   tech: [
+  //     {
+  //       text: "HTML",
+  //     },
+  //     {
+  //       text: "TAILWIND CSS",
+  //     },
+  //     {
+  //       text: "JS",
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: 6,
+  //   imgUrl: img6,
+  //   imgAlt: "Todo",
+  //   title: "Todo List",
+  //   desc: "A simple and efficient To-Do List app for adding, managing, and tracking daily tasks with smooth UI and real-time updates for better productivity.",
+  //   github: "https://github.com/Abinashrout244/my-To-Do-App",
+  //   Deploy: "https://abinashrout244.github.io/my-To-Do-App/",
+  //   tech: [
+  //     {
+  //       text: "HTML",
+  //     },
+  //     {
+  //       text: "TAILWIND CSS",
+  //     },
+  //     {
+  //       text: "JS",
+  //     },
+  //   ],
+  // },
   {
     id: 7,
     imgUrl: img7,
