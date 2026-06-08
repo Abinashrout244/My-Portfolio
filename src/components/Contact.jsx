@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import img from "../assets/images/con-removebg-preview.png";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
@@ -34,16 +34,41 @@ const Contact = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const handleForm = (e) => {
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+
+  const handleForm = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const text = form.textarea.value;
     if (!name || !email || !text) { alert("All fields are mandatory."); return; }
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, { name, email, idea: text }, PUBLIC_KEY)
-      .then(() => { alert("Submitted!"); form.reset(); }, () => alert("Something went wrong!"));
+
+    setStatus("loading");
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, { name, email, idea: text }, PUBLIC_KEY);
+      setStatus("success");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
+
+  const btnLabel =
+    status === "loading" ? "Sending..."      :
+    status === "success" ? "Message Sent ✓"  :
+    status === "error"   ? "Failed — Retry"  :
+    "Initiate Project";
+
+  const btnGradient =
+    status === "success" ? "from-green-600 to-green-500"                                              :
+    status === "error"   ? "from-red-600 to-red-400"                                                  :
+    status === "loading" ? (isDark ? "from-gray-700 to-gray-500 opacity-60" : "from-pink-600 to-indigo-600 opacity-60") :
+    isDark               ? "from-gray-700 to-gray-500"                                                :
+                           "from-pink-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500";
 
   return (
     <section className="relative scroll-mt-24 py-20 px-6 md:px-24 lg:px-40 overflow-hidden bg-transparent" id="contact">
@@ -149,13 +174,15 @@ const Contact = () => {
 
                 <motion.button
                   variants={formField}
-                  whileHover={{ scale: 1.02, boxShadow: isDark ? "0 0 24px rgba(156,163,175,0.25)" : "0 0 28px rgba(219,39,119,0.45)" }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={status === "idle" ? { scale: 1.02, boxShadow: isDark ? "0 0 24px rgba(156,163,175,0.25)" : "0 0 28px rgba(219,39,119,0.45)" } : {}}
+                  whileTap={status === "idle" ? { scale: 0.98 } : {}}
                   type="submit"
-                  className={`w-full py-4 mt-2 rounded-xl text-white font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 shadow-lg transition-all duration-500 bg-gradient-to-r
-                    ${isDark ? "from-gray-700 to-gray-500" : "from-pink-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500"}`}
+                  disabled={status === "loading" || status === "success"}
+                  className={`w-full py-4 mt-2 rounded-xl text-white font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 shadow-lg transition-all duration-500 bg-gradient-to-r ${btnGradient} ${
+                    status === "loading" || status === "success" ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
                 >
-                  <Send size={16} /> Initiate Project
+                  <Send size={16} /> {btnLabel}
                 </motion.button>
               </motion.form>
             </div>
