@@ -205,7 +205,7 @@ const Banner = () => {
     <section
       id="home"
       className={`relative min-h-screen overflow-hidden flex flex-col md:flex-row items-center
-        justify-between px-6 md:px-20 lg:px-36 transition-colors duration-700
+        justify-between px-6 md:px-20 lg:px-36 pt-10 transition-colors duration-700
         bg-transparent dark:bg-[#090909]`}
     >
       

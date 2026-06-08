@@ -126,7 +126,7 @@ const About = () => {
               <div className={`absolute inset-0 [backface-visibility:hidden] p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
                 ${isDark ? "bg-[#1e1e1e] border-white/10" : "bg-gradient-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
                 <div className="rounded-[2rem] overflow-hidden bg-gray-200 dark:bg-[#121212] h-full w-full">
-                  <img src="https://static.vecteezy.com/system/resources/previews/021/907/517/large_2x/anime-boy-avatar-ai-generative-art-ai-generation-art-photo.jpg"
+                  <img src={img}
                     alt="Avi Anime" className="h-full w-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" />
                 </div>
               </div>
@@ -135,7 +135,7 @@ const About = () => {
               <div className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
                 ${isDark ? "bg-[#1e1e1e] border-indigo-500/40" : "bg-gradient-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
                 <div className="rounded-[2rem] overflow-hidden h-full w-full">
-                  <img src={img} alt="Abinash Rout Real" className="h-full w-full object-cover group-hover:scale-105 transition-all duration-700" />
+                 <img src="https://static.vecteezy.com/system/resources/previews/021/907/517/large_2x/anime-boy-avatar-ai-generative-art-ai-generation-art-photo.jpg" alt="Abinash Rout Real" className="h-full w-full object-cover group-hover:scale-105 transition-all duration-700" />
                 </div>
               </div>
             </div>

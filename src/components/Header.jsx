@@ -14,6 +14,14 @@ const navLinks = [
   { name: "Contact",  href: "#contact", section: "contact" },
 ];
 
+const socials = [
+    { icon: faGithub,    href: "https://github.com/Abinashrout244",                       delay: 2.3 },
+    { icon: faLinkedin,  href: "https://www.linkedin.com/in/abinash-rout-274285322",      delay: 2.4 },
+    { icon: faXTwitter,  href: "https://x.com/AbinashRout2251",                           delay: 2.5 },
+    { icon: faInstagram, href: "https://www.instagram.com/frequency._0.001",              delay: 2.6 },
+  ];
+
+
 /* Magnetic button hook */
 const useMagnetic = (strength = 0.3) => {
   const ref = useRef(null);
@@ -191,9 +199,9 @@ const Header = () => {
                 className="mt-auto pt-10 border-t border-white/10">
                 <p className="text-xs text-gray-500 uppercase tracking-[0.3em] mb-4">Let's Connect</p>
                 <div className="flex gap-6">
-                  {[faGithub, faLinkedin, faXTwitter, faInstagram].map((icon, i) => (
-                    <a key={i} href="#" className={`transition-colors ${isDark ? "text-gray-500 hover:text-white" : "text-white/60 hover:text-pink-500"}`}>
-                      <FontAwesomeIcon icon={icon} size="lg" />
+                  {socials.map((link, i) => (
+                    <a key={i} href={link.href} target="_blank" className={`transition-colors ${isDark ? "text-gray-500 hover:text-white" : "text-white/60 hover:text-pink-500"}`}>
+                      <FontAwesomeIcon icon={link.icon} size="lg" />
                     </a>
                   ))}
                 </div>
