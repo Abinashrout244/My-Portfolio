@@ -11,7 +11,7 @@ import img10 from "../assets/images/chat.png";
 
 export const ProjectData = [
   {
-    id: 10,
+    id: 8,
     imgUrl: img10,
     imgAlt: "Chat App",
     title: "RealTime Chat_App",
@@ -43,7 +43,7 @@ export const ProjectData = [
     ],
   },
   {
-    id: 9,
+    id: 7,
     imgUrl: img9,
     imgAlt: "Note App",
     title: "Note_App",
@@ -72,7 +72,7 @@ export const ProjectData = [
     ],
   },
   {
-    id: 8,
+    id: 6,
     imgUrl: img8,
     imgAlt: "Netflix",
     title: "Netflix_Clone",
@@ -99,7 +99,7 @@ export const ProjectData = [
     ],
   },
   {
-    id: 1,
+    id: 5,
     imgUrl: img1,
     imgAlt: "shopcart",
     title: "Ec-ShopCart",
@@ -145,7 +145,7 @@ export const ProjectData = [
   //   ],
   // },
   {
-    id: 3,
+    id: 4,
     imgUrl: img3,
     imgAlt: "Flowershop",
     title: "FlowerShop",
@@ -171,7 +171,7 @@ export const ProjectData = [
     ],
   },
   {
-    id: 4,
+    id: 3,
     imgUrl: img4,
     imgAlt: "tictactoe",
     title: "TicTacToe",
@@ -230,8 +230,32 @@ export const ProjectData = [
   //     },
   //   ],
   // },
+
   {
-    id: 7,
+    id: 2,
+    imgUrl: img2,
+    imgAlt: "Fake-api",
+    title: "Fake-API",
+    desc: "AJ Tube is a simple video-browsing platform that fetches and displays content using API data, offering a smooth and lightweight YouTube-style experience.",
+    github: "https://github.com/Abinashrout244/FAKe_API_V0",
+    Deploy: "https://fa-ke-api-v0.vercel.app",
+    tech: [
+      {
+        text: "TAILWIND CSS",
+      },
+      {
+        text: "Framer-Motion",
+      },
+      {
+        text: "Lucide-react",
+      },
+      {
+        text: "Redux-toolkit",
+      },
+    ],
+  },
+  {
+    id: 1,
     imgUrl: img7,
     imgAlt: "aj",
     title: "AJ Tube",
