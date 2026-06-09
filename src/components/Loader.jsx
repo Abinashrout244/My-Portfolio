@@ -11,10 +11,19 @@ const SplitText = ({ text, className, stagger = 0.05, delay = 0.3 }) => {
   };
   const letter = {
     hidden: { y: "100%", opacity: 0 },
-    visible: { y: "0%", opacity: 1, transition: { ease: [0.22, 1, 0.36, 1], duration: 0.6 } },
+    visible: {
+      y: "0%",
+      opacity: 1,
+      transition: { ease: [0.22, 1, 0.36, 1], duration: 0.6 },
+    },
   };
   return (
-    <motion.span variants={container} initial="hidden" animate="visible" className={className}>
+    <motion.span
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className={className}
+    >
       {letters.map((l, i) => (
         <span key={i} className="inline-block overflow-hidden">
           <motion.span variants={letter} className="inline-block">
@@ -63,7 +72,8 @@ const Loader = ({ onComplete }) => {
             ${isDark ? "bg-[#090909]" : "bg-[#050510]"}`}
         >
           {/* Grid decoration */}
-          <div className="absolute inset-0 pointer-events-none"
+          <div
+            className="absolute inset-0 pointer-events-none"
             style={{
               backgroundImage: isDark
                 ? "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)"
@@ -73,7 +83,8 @@ const Loader = ({ onComplete }) => {
           />
 
           {/* Centre glow */}
-          <div className={`absolute w-[400px] h-[400px] rounded-full blur-[160px] pointer-events-none
+          <div
+            className={`absolute w-[400px] h-[400px] rounded-full blur-[160px] pointer-events-none
             ${isDark ? "bg-gray-500/10" : "bg-indigo-600/15"}`}
           />
 
@@ -86,13 +97,16 @@ const Loader = ({ onComplete }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={`w-24 h-24 rounded-[2rem] flex items-center justify-center text-4xl font-black border
-                  ${isDark
-                    ? "bg-[#1e1e1e] border-white/10 text-white"
-                    : "bg-white/10 border-white/20 text-white"
+                  ${
+                    isDark
+                      ? "bg-[#1e1e1e] border-white/10 text-white"
+                      : "bg-white/10 border-white/20 text-white"
                   }`}
               >
-                <span className={`text-transparent bg-clip-text bg-gradient-to-br
-                  ${isDark ? "from-white to-gray-400" : "from-pink-400 to-indigo-400"}`}>
+                <span
+                  className={`text-transparent bg-clip-text bg-gradient-to-br
+                  ${isDark ? "from-white to-gray-400" : "from-pink-400 to-indigo-400"}`}
+                >
                   AR
                 </span>
               </motion.div>
@@ -119,7 +133,7 @@ const Loader = ({ onComplete }) => {
                 transition={{ delay: 1.2, duration: 0.5 }}
                 className={`text-xs tracking-[0.4em] uppercase mt-2 ${isDark ? "text-gray-500" : "text-white/40"}`}
               >
-                Front-End Developer
+                MERN-Stack Developer
               </motion.p>
             </div>
 
@@ -130,17 +144,23 @@ const Loader = ({ onComplete }) => {
               transition={{ delay: 0.8 }}
               className="w-64 mt-4"
             >
-              <div className={`w-full h-[2px] rounded-full overflow-hidden ${isDark ? "bg-white/10" : "bg-white/10"}`}>
+              <div
+                className={`w-full h-[2px] rounded-full overflow-hidden ${isDark ? "bg-white/10" : "bg-white/10"}`}
+              >
                 <motion.div
                   className={`h-full rounded-full bg-gradient-to-r ${isDark ? "from-gray-400 to-gray-600" : "from-pink-500 to-indigo-500"}`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
               <div className="flex justify-between mt-2">
-                <span className={`font-mono text-[10px] tracking-widest ${isDark ? "text-gray-600" : "text-white/30"}`}>
+                <span
+                  className={`font-mono text-[10px] tracking-widest ${isDark ? "text-gray-600" : "text-white/30"}`}
+                >
                   Loading
                 </span>
-                <span className={`font-mono text-[10px] ${isDark ? "text-gray-500" : "text-white/40"}`}>
+                <span
+                  className={`font-mono text-[10px] ${isDark ? "text-gray-500" : "text-white/40"}`}
+                >
                   {progress}%
                 </span>
               </div>

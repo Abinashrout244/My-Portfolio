@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   motion,
@@ -10,15 +8,17 @@ import {
 } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faGithub, faLinkedin, faXTwitter, faInstagram,
+  faGithub,
+  faLinkedin,
+  faXTwitter,
+  faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Tilt from "react-parallax-tilt";
 import { useTheme } from "../context/ThemeContext";
 import Particles from "./Particles";
 import TextType from "./TextType";
-import img      from "../assets/images/anime.png";
-
+import img from "../assets/images/anime.png";
 
 const makeLetterVariants = (delay = 0, stagger = 0.04) => ({
   container: {
@@ -42,7 +42,9 @@ const makeLetterVariants = (delay = 0, stagger = 0.04) => ({
 const fadeUp = (delay = 0, duration = 0.7) => ({
   hidden: { y: 36, opacity: 0, filter: "blur(4px)" },
   visible: {
-    y: 0, opacity: 1, filter: "blur(0px)",
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
     transition: { duration, delay, ease: [0.22, 1, 0.36, 1] },
   },
 });
@@ -51,13 +53,20 @@ const fadeUp = (delay = 0, duration = 0.7) => ({
 const scalePop = (delay = 0) => ({
   hidden: { scale: 0.6, opacity: 0, y: 10 },
   visible: {
-    scale: 1, opacity: 1, y: 0,
+    scale: 1,
+    opacity: 1,
+    y: 0,
     transition: { type: "spring", stiffness: 260, damping: 18, delay },
   },
 });
 
-
-const SplitText = ({ text, variants, className, letterClassName, as: Tag = "span" }) => (
+const SplitText = ({
+  text,
+  variants,
+  className,
+  letterClassName,
+  as: Tag = "span",
+}) => (
   <motion.span
     variants={variants.container}
     initial="hidden"
@@ -66,7 +75,11 @@ const SplitText = ({ text, variants, className, letterClassName, as: Tag = "span
     className={className}
   >
     {text.split("").map((char, i) => (
-      <span key={i} className="inline-block overflow-hidden" style={{ perspective: "600px" }}>
+      <span
+        key={i}
+        className="inline-block overflow-hidden"
+        style={{ perspective: "600px" }}
+      >
         <motion.span
           variants={variants.letter}
           className={`inline-block ${letterClassName || ""}`}
@@ -78,7 +91,6 @@ const SplitText = ({ text, variants, className, letterClassName, as: Tag = "span
     ))}
   </motion.span>
 );
-
 
 const FloatingShape = ({ style, className, children, delay = 0 }) => (
   <motion.div
@@ -99,21 +111,29 @@ const MagneticIcon = ({ icon, href, delay, isDark }) => {
   const sy = useSpring(y, { stiffness: 300, damping: 18 });
   const ref = useRef(null);
 
-  const handleMove = useCallback((e) => {
-    const el = ref.current;
-    if (!el) return;
-    const { left, top, width, height } = el.getBoundingClientRect();
-    x.set((e.clientX - left - width / 2) * 0.5);
-    y.set((e.clientY - top - height / 2) * 0.5);
+  const handleMove = useCallback(
+    (e) => {
+      const el = ref.current;
+      if (!el) return;
+      const { left, top, width, height } = el.getBoundingClientRect();
+      x.set((e.clientX - left - width / 2) * 0.5);
+      y.set((e.clientY - top - height / 2) * 0.5);
+    },
+    [x, y],
+  );
+  const handleLeave = useCallback(() => {
+    x.set(0);
+    y.set(0);
   }, [x, y]);
-  const handleLeave = useCallback(() => { x.set(0); y.set(0); }, [x, y]);
 
   return (
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 24, scale: 0.6 },
         visible: {
-          opacity: 1, y: 0, scale: 1,
+          opacity: 1,
+          y: 0,
+          scale: 1,
           transition: { type: "spring", stiffness: 280, damping: 18, delay },
         },
       }}
@@ -128,7 +148,9 @@ const MagneticIcon = ({ icon, href, delay, isDark }) => {
         onMouseLeave={handleLeave}
         whileHover={{
           scale: 1.25,
-          backgroundColor: isDark ? "rgba(75,85,99,0.9)" : "rgba(219,39,119,0.9)",
+          backgroundColor: isDark
+            ? "rgba(75,85,99,0.9)"
+            : "rgba(219,39,119,0.9)",
           color: "#fff",
           boxShadow: isDark
             ? "0 0 20px rgba(156,163,175,0.3)"
@@ -138,9 +160,10 @@ const MagneticIcon = ({ icon, href, delay, isDark }) => {
         transition={{ type: "spring", stiffness: 300, damping: 16 }}
         className={`w-11 h-11 flex items-center justify-center border-2 rounded-full
           transition-colors duration-200 cursor-pointer
-          ${isDark
-            ? "border-gray-700 text-gray-400"
-            : "border-pink-500/40 text-pink-400 shadow-pink-500/10 shadow-lg"
+          ${
+            isDark
+              ? "border-gray-700 text-gray-400"
+              : "border-pink-500/40 text-pink-400 shadow-pink-500/10 shadow-lg"
           }`}
       >
         <FontAwesomeIcon icon={icon} size="sm" />
@@ -148,7 +171,6 @@ const MagneticIcon = ({ icon, href, delay, isDark }) => {
     </motion.div>
   );
 };
-
 
 const useParallaxMouse = () => {
   const rawX = useMotionValue(0);
@@ -159,7 +181,7 @@ const useParallaxMouse = () => {
   useEffect(() => {
     const update = (e) => {
       // normalise: -1 → +1 from screen centre
-      rawX.set((e.clientX / window.innerWidth  - 0.5) * 2);
+      rawX.set((e.clientX / window.innerWidth - 0.5) * 2);
       rawY.set((e.clientY / window.innerHeight - 0.5) * 2);
     };
     window.addEventListener("mousemove", update);
@@ -169,36 +191,43 @@ const useParallaxMouse = () => {
   return { smoothX, smoothY };
 };
 
-
 const Banner = () => {
-  const { theme }  = useTheme();
-  const isDark     = theme === "dark";
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const [isHovered, setIsHovered] = useState(false);
 
   // Mouse parallax engine
   const { smoothX, smoothY } = useParallaxMouse();
 
   // Derived per-depth transforms (stronger on mid, subtle on fg)
-  const midX  = useTransform(smoothX, [-1, 1], [-22, 22]);
-  const midY  = useTransform(smoothY, [-1, 1], [-14, 14]);
-  const fgX   = useTransform(smoothX, [-1, 1], [-8,  8 ]);
-  const fgY   = useTransform(smoothY, [-1, 1], [-5,  5 ]);
-  const imgX  = useTransform(smoothX, [-1, 1], [-15, 15]);
-  const imgY  = useTransform(smoothY, [-1, 1], [-10, 10]);
+  const midX = useTransform(smoothX, [-1, 1], [-22, 22]);
+  const midY = useTransform(smoothY, [-1, 1], [-14, 14]);
+  const fgX = useTransform(smoothX, [-1, 1], [-8, 8]);
+  const fgY = useTransform(smoothY, [-1, 1], [-5, 5]);
+  const imgX = useTransform(smoothX, [-1, 1], [-15, 15]);
+  const imgY = useTransform(smoothY, [-1, 1], [-10, 10]);
 
   // spring for fgX/fgY
-  const fgXs  = useSpring(fgX,  { stiffness: 80, damping: 20 });
-  const fgYs  = useSpring(fgY,  { stiffness: 80, damping: 20 });
+  const fgXs = useSpring(fgX, { stiffness: 80, damping: 20 });
+  const fgYs = useSpring(fgY, { stiffness: 80, damping: 20 });
 
   // Letter variants (different delays for greeting vs name)
   const greetVars = makeLetterVariants(0.7, 0.03);
-  const nameVars  = makeLetterVariants(1.05, 0.04);
+  const nameVars = makeLetterVariants(1.05, 0.04);
 
   const socials = [
-    { icon: faGithub,    href: "https://github.com/Abinashrout244",                       delay: 2.3 },
-    { icon: faLinkedin,  href: "https://www.linkedin.com/in/abinash-rout-274285322",      delay: 2.4 },
-    { icon: faXTwitter,  href: "https://x.com/AbinashRout2251",                           delay: 2.5 },
-    { icon: faInstagram, href: "https://www.instagram.com/frequency._0.001",              delay: 2.6 },
+    { icon: faGithub, href: "https://github.com/Abinashrout244", delay: 2.3 },
+    {
+      icon: faLinkedin,
+      href: "https://www.linkedin.com/in/abinash-rout-274285322",
+      delay: 2.4,
+    },
+    { icon: faXTwitter, href: "https://x.com/AbinashRout2251", delay: 2.5 },
+    {
+      icon: faInstagram,
+      href: "https://www.instagram.com/frequency._0.001",
+      delay: 2.6,
+    },
   ];
 
   return (
@@ -208,18 +237,19 @@ const Banner = () => {
         justify-between px-6 md:px-20 lg:px-36 pt-10 transition-colors duration-700
         bg-transparent dark:bg-[#090909]`}
     >
-      
       <motion.div
         initial={{ opacity: 0, scale: 1.08, filter: "blur(20px)" }}
-        animate={{ opacity: 1, scale: 1,   filter: "blur(0px)"  }}
+        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         className="absolute inset-0 z-0 pointer-events-none"
       >
         {/* Particles */}
         <Particles
-          particleColors={isDark
-            ? ["#9ca3af", "#374151", "#ffffff"]
-            : ["#ffffff", "#db2777", "#6366f1"]}
+          particleColors={
+            isDark
+              ? ["#9ca3af", "#374151", "#ffffff"]
+              : ["#ffffff", "#db2777", "#6366f1"]
+          }
           particleCount={600}
           particleSpread={14}
           speed={0.25}
@@ -233,7 +263,8 @@ const Banner = () => {
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: "radial-gradient(circle, currentColor 1px, transparent 1px)",
+            backgroundImage:
+              "radial-gradient(circle, currentColor 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -242,7 +273,7 @@ const Banner = () => {
         <motion.div
           animate={{
             opacity: [0.35, 0.55, 0.35],
-            scale:   [1, 1.06, 1],
+            scale: [1, 1.06, 1],
           }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           className={`absolute top-[-15%] left-[-10%] w-[700px] h-[700px] rounded-full blur-[160px]
@@ -250,22 +281,23 @@ const Banner = () => {
         />
         <motion.div
           animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.08, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
           className={`absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full blur-[150px]
             ${isDark ? "bg-indigo-900/20" : "bg-pink-600/20"}`}
         />
       </motion.div>
 
-    
       <motion.div
         style={{ x: midX, y: midY }}
         className="absolute inset-0 z-[1] pointer-events-none"
       >
         {/* Top-left large ring */}
-        <FloatingShape
-          delay={0.4}
-          className="top-[10%] left-[6%]"
-        >
+        <FloatingShape delay={0.4} className="top-[10%] left-[6%]">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -275,10 +307,7 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Top-right small solid circle */}
-        <FloatingShape
-          delay={0.5}
-          className="top-[18%] right-[18%]"
-        >
+        <FloatingShape delay={0.5} className="top-[18%] right-[18%]">
           <motion.div
             animate={{ y: [0, -18, 0], scale: [1, 1.06, 1] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -288,13 +317,15 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Thin horizontal line — left */}
-        <FloatingShape
-          delay={0.6}
-          className="top-[55%] left-[2%]"
-        >
+        <FloatingShape delay={0.6} className="top-[55%] left-[2%]">
           <motion.div
             animate={{ width: ["40px", "90px", "40px"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
             className={`h-[1px] opacity-25 bg-gradient-to-r
               ${isDark ? "from-gray-400 to-transparent" : "from-pink-400 to-transparent"}`}
             style={{ width: "60px" }}
@@ -302,10 +333,7 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Bottom-left triangle outline */}
-        <FloatingShape
-          delay={0.7}
-          className="bottom-[22%] left-[14%]"
-        >
+        <FloatingShape delay={0.7} className="bottom-[22%] left-[14%]">
           <motion.div
             animate={{ rotate: [0, 20, 0, -20, 0] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -323,13 +351,15 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Right-side vertical line */}
-        <FloatingShape
-          delay={0.5}
-          className="top-[30%] right-[8%]"
-        >
+        <FloatingShape delay={0.5} className="top-[30%] right-[8%]">
           <motion.div
             animate={{ height: ["30px", "80px", "30px"] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
             className={`w-[1px] opacity-20 bg-gradient-to-b
               ${isDark ? "from-transparent via-gray-400 to-transparent" : "from-transparent via-indigo-400 to-transparent"}`}
             style={{ height: "50px" }}
@@ -337,16 +367,18 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Mid-left floating dot cluster */}
-        <FloatingShape
-          delay={0.8}
-          className="top-[42%] left-[5%]"
-        >
+        <FloatingShape delay={0.8} className="top-[42%] left-[5%]">
           <div className="flex flex-col gap-2 opacity-30">
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
                 animate={{ x: [0, 6, 0] }}
-                transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+                transition={{
+                  duration: 3 + i,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.4,
+                }}
                 className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-gray-500" : "bg-pink-400"}`}
               />
             ))}
@@ -354,10 +386,7 @@ const Banner = () => {
         </FloatingShape>
 
         {/* Corner accent — bottom right (behind image area) */}
-        <FloatingShape
-          delay={0.45}
-          className="bottom-[15%] right-[22%]"
-        >
+        <FloatingShape delay={0.45} className="bottom-[15%] right-[22%]">
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -366,7 +395,6 @@ const Banner = () => {
           />
         </FloatingShape>
       </motion.div>
-
 
       {/* LEFT — TEXT CONTENT */}
       <motion.div
@@ -380,13 +408,15 @@ const Banner = () => {
           animate="visible"
           className={`self-start flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px]
             font-bold tracking-[0.35em] uppercase backdrop-blur-md
-            ${isDark
-              ? "border-gray-700 bg-gray-900/60 text-gray-400"
-              : "border-pink-500/30 bg-pink-500/10 text-pink-400"
+            ${
+              isDark
+                ? "border-gray-700 bg-gray-900/60 text-gray-400"
+                : "border-pink-500/30 bg-pink-500/10 text-pink-400"
             }`}
         >
           {/* Pulsing dot */}
-          <span className={`w-1.5 h-1.5 rounded-full animate-pulse
+          <span
+            className={`w-1.5 h-1.5 rounded-full animate-pulse
             ${isDark ? "bg-gray-400" : "bg-pink-400"}`}
           />
           Available for Work
@@ -406,16 +436,22 @@ const Banner = () => {
           {/* Post-reveal idle: whole name softly floats */}
           <motion.div
             animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
           >
             <SplitText
               text="Abinash Rout"
               variants={nameVars}
-              className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight"
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight"
               letterClassName={`text-transparent bg-clip-text bg-gradient-to-br
-                ${isDark
-                  ? "from-white via-gray-200 to-gray-500"
-                  : "from-pink-400 via-fuchsia-300 to-indigo-400"
+                ${
+                  isDark
+                    ? "from-white via-gray-200 to-gray-500"
+                    : "from-pink-400 via-fuchsia-300 to-indigo-400"
                 }`}
             />
           </motion.div>
@@ -428,17 +464,30 @@ const Banner = () => {
           animate="visible"
           className="flex items-center gap-2 mt-1"
         >
-          <span className={`font-mono text-2xl font-bold ${isDark ? "text-gray-600" : "text-indigo-300/60"}`}>
+          <span
+            className={`font-mono text-2xl font-bold ${isDark ? "text-gray-600" : "text-indigo-300/60"}`}
+          >
             &lt;
           </span>
           <TextType
-            text={["Web Developer","Frontend Developer","React Developer","MERN Stack Dev"]}
+            text={[
+              "Web Developer",
+              "Frontend Developer",
+              "React Developer",
+              "MERN Stack Dev",
+            ]}
             className={`text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r
               ${isDark ? "from-gray-300 to-gray-500" : "from-pink-400 to-indigo-400"}`}
             cursorClassName={`w-[2px] h-6 ml-0.5 ${isDark ? "bg-gray-400" : "bg-pink-400"}`}
-            typingSpeed={70} deletingSpeed={45} pauseDuration={1800} showCursor cursorCharacter="|"
+            typingSpeed={70}
+            deletingSpeed={45}
+            pauseDuration={1800}
+            showCursor
+            cursorCharacter="|"
           />
-          <span className={`font-mono text-2xl font-bold ${isDark ? "text-gray-600" : "text-indigo-300/60"}`}>
+          <span
+            className={`font-mono text-2xl font-bold ${isDark ? "text-gray-600" : "text-indigo-300/60"}`}
+          >
             /&gt;
           </span>
         </motion.div>
@@ -452,7 +501,9 @@ const Banner = () => {
             ${isDark ? "text-gray-500" : "text-white/60"}`}
         >
           Crafting immersive web experiences where{" "}
-          <span className={`font-semibold ${isDark ? "text-gray-300" : "text-white"}`}>
+          <span
+            className={`font-semibold ${isDark ? "text-gray-300" : "text-white"}`}
+          >
             design meets engineering.
           </span>{" "}
           Specialising in React, animation, and high-performance UI.
@@ -470,7 +521,11 @@ const Banner = () => {
             {/* Animated gradient halo */}
             <motion.div
               animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.04, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className={`absolute -inset-[2px] rounded-full blur-sm pointer-events-none bg-gradient-to-r
                 ${isDark ? "from-gray-400 to-gray-700" : "from-pink-500 to-indigo-600"}`}
             />
@@ -488,11 +543,13 @@ const Banner = () => {
           {/* Secondary — glass */}
           <a
             href="https://drive.google.com/uc?export=download&id=1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             <motion.button
               whileHover={{
-                scale: 1.05, y: -2,
+                scale: 1.05,
+                y: -2,
                 backgroundColor: "rgba(255,255,255,0.12)",
                 boxShadow: isDark
                   ? "0 0 24px rgba(156,163,175,0.15)"
@@ -501,9 +558,10 @@ const Banner = () => {
               whileTap={{ scale: 0.96, y: 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 18 }}
               className={`py-3.5 px-9 rounded-full font-semibold text-sm tracking-wide border backdrop-blur-md
-                ${isDark
-                  ? "bg-white/5 border-white/10 text-gray-300"
-                  : "bg-white/5 border-white/15 text-white"
+                ${
+                  isDark
+                    ? "bg-white/5 border-white/10 text-gray-300"
+                    : "bg-white/5 border-white/15 text-white"
                 }`}
             >
               Download CV
@@ -513,7 +571,10 @@ const Banner = () => {
 
         {/* ── Social icons ── magnetic, staggered ── */}
         <motion.div
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0 } } }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0 } },
+          }}
           initial="hidden"
           animate="visible"
           className="flex gap-3 mt-4"
@@ -528,7 +589,7 @@ const Banner = () => {
       <motion.div
         style={{ x: imgX, y: imgY }}
         initial={{ x: 120, opacity: 0, filter: "blur(12px)" }}
-        animate={{ x: 0,   opacity: 1, filter: "blur(0px)"  }}
+        animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
         transition={{ duration: 1.1, delay: 2.4, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full md:w-[46%] flex justify-center items-end
           h-[45vh] md:h-[68vh] mt-16 md:mt-4"
@@ -584,13 +645,16 @@ const Banner = () => {
 
       {/* ── SCROLL INDICATOR ── */}
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ delay: 3, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
       >
         {/* Mouse icon */}
-        <div className={`w-[22px] h-[34px] rounded-full border-2 flex justify-center pt-1.5
-          ${isDark ? "border-gray-700" : "border-white/20"}`}>
+        <div
+          className={`w-[22px] h-[34px] rounded-full border-2 flex justify-center pt-1.5
+          ${isDark ? "border-gray-700" : "border-white/20"}`}
+        >
           <motion.div
             animate={{ y: [0, 10, 0], opacity: [1, 0, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
@@ -606,7 +670,7 @@ const Banner = () => {
         >
           Scroll
         </motion.span>
-       </motion.div>
+      </motion.div>
     </section>
   );
 };
