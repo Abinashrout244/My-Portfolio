@@ -2,6 +2,8 @@
 
 A modern, fully responsive portfolio application built with cutting-edge web technologies. This professional portfolio showcases technical skills, project work, and professional experience through an interactive and performant web interface.
 
+![Home Banner](./screenshots/BANNER.png)
+
 ## Overview
 
 This portfolio website demonstrates expertise in front-end development with a focus on responsive design, performance optimization, and modern user experience principles. Features include smooth animations, theme switching capabilities, and comprehensive project documentation.
