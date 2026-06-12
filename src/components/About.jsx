@@ -152,7 +152,7 @@ const About = () => {
                 ${isDark ? "bg-[#1e1e1e] border-white/10" : "bg-[#0f172a]/80 backdrop-blur-2xl border border-pink-400"}`}>
                 <h2 className="text-center text-lg font-bold">
                   <span className={`block font-black uppercase tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-r
-                    ${isDark ? "from-white to-gray-500" : "from-pink-500 to-rose-500"}`}>FRONTEND</span>
+                    ${isDark ? "from-white to-gray-500" : "from-pink-500 to-rose-500"}`}>MERNSTACK</span>
                   <span className={isDark ? "text-gray-400" : "text-white"}>DEVELOPER</span>
                 </h2>
               </div>

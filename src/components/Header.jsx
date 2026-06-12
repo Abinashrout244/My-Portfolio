@@ -122,30 +122,36 @@ const Header = () => {
           }`}
         >
           {/* Logo — magnetic */}
-          <motion.div
-            ref={logoMag.ref}
-            style={{ x: logoMag.springX, y: logoMag.springY }}
-            className="flex items-center gap-3 group relative z-[1002] cursor-pointer"
-          >
-            <div
-              className={`relative p-2 rounded-lg border transition-colors duration-500 ${isDark ? "bg-[#121212] border-white/10" : "bg-white/10 border-white/20"}`}
-            >
-              <FontAwesomeIcon
-                icon={faCode}
-                className={`text-xl transition-colors ${isDark ? "text-gray-400" : "text-pink-500"}`}
-              />
-              {/* Pulse ring on logo */}
-              <span
-                className={`absolute inset-0 rounded-lg border opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 ${isDark ? "border-gray-600" : "border-pink-500/50"}`}
-              />
-            </div>
-            <h2
-              className={`text-xl font-black tracking-tighter uppercase italic transition-colors ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
-            >
-              Avi Dev
-            </h2>
-          </motion.div>
+         <motion.div
+  ref={logoMag.ref}
+  style={{ x: logoMag.springX, y: logoMag.springY }}
+  className="flex items-center gap-3 group relative z-[1002] cursor-pointer"
+>
+  <div
+    className={`relative p-2 rounded-lg border transition-colors duration-500 ${isDark ? "bg-[#121212] border-white/10" : "bg-white/10 border-white/20"}`}
+  >
+    <FontAwesomeIcon
+      icon={faCode}
+      className={`text-xl transition-colors ${isDark ? "text-gray-400" : "text-pink-500"}`}
+    />
+    <span
+      className={`absolute inset-0 rounded-lg border opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 ${isDark ? "border-gray-600" : "border-pink-500/50"}`}
+    />
+  </div>
 
+  <div className="flex flex-col gap-0">
+    <h2
+      className={`text-xl font-black tracking-tighter uppercase italic transition-colors leading-none ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
+    >
+      Avi Dev
+    </h2>
+    <span
+      className={`text-[9px] font-mono tracking-[2.5px] uppercase transition-colors ${isDark ? "text-white/30" : "text-white/50"}`}
+    >
+      MERN Stack
+    </span>
+  </div>
+</motion.div>
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
