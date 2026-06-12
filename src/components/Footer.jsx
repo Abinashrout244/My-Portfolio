@@ -154,31 +154,30 @@ const Footer = () => {
             <span className="text-[#7F77DD]">delivered to you.</span>
           </h3>
         </div>
-
-        <form
-          onSubmit={handleSubscribe}
-          className="flex gap-2 w-full md:w-auto md:max-w-md"
-        >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            disabled={status === "loading" || status === "success"}
-            className={`flex-1 h-10 px-4 text-sm rounded-lg border outline-none transition-all focus:border-[#7F77DD] ${
-              isDark
-                ? "bg-[#1e1e1e] border-white/10 text-white placeholder:text-gray-600"
-                : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
-            }`}
-          />
-          <button
-            type="submit"
-            disabled={status === "loading" || status === "success"}
-            className={`h-10 px-5 rounded-lg text-sm font-medium text-white transition-all whitespace-nowrap ${btnClass}`}
-          >
-            {btnLabel}
-          </button>
-        </form>
+<form
+  onSubmit={handleSubscribe}
+  className="flex flex-col sm:flex-row gap-2 w-full max-w-md"
+>
+  <input
+    type="email"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    placeholder="your@email.com"
+    disabled={status === "loading" || status === "success"}
+    className={`flex-1 min-w-0 h-10 sm:h-auto py-3 sm:py-0 px-4 text-sm rounded-lg border outline-none transition-all focus:border-[#7F77DD] ${
+      isDark
+        ? "bg-[#1e1e1e] border-white/10 text-white placeholder:text-gray-600"
+        : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+    }`}
+  />
+  <button
+    type="submit"
+    disabled={status === "loading" || status === "success"}
+    className={`h-10 px-5 rounded-lg text-sm font-medium text-white transition-all whitespace-nowrap sm:shrink-0 w-full sm:w-auto ${btnClass}`}
+  >
+    {btnLabel}
+  </button>
+</form>
 
         {/* Status message below form */}
         {status === "success" && (
