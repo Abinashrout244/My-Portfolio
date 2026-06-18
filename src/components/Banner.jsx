@@ -179,12 +179,8 @@ const Banner = () => {
 
   const midX = useTransform(smoothX, [-1, 1], [-22, 22]);
   const midY = useTransform(smoothY, [-1, 1], [-14, 14]);
-  const fgX = useTransform(smoothX, [-1, 1], [-8, 8]);
-  const fgY = useTransform(smoothY, [-1, 1], [-5, 5]);
   const imgX = useTransform(smoothX, [-1, 1], [8, -8]);
 
-  const fgXs = useSpring(fgX, { stiffness: 80, damping: 20 });
-  const fgYs = useSpring(fgY, { stiffness: 80, damping: 20 });
   const imgXs = useSpring(imgX, { stiffness: 50, damping: 22 });
 
   const greetVars = makeLetterVariants(0.7, 0.03);
@@ -414,10 +410,7 @@ const Banner = () => {
       </motion.div>
 
       {/* ── LEFT — TEXT CONTENT ── */}
-      <motion.div
-        style={{ x: fgXs, y: fgYs }}
-        className="relative z-10 w-full md:w-[52%] mt-20 md:mt-0 flex flex-col gap-3 md:gap-5 pb-20 md:pb-0"
-      >
+      <div className="relative z-10 w-full md:w-[52%] mt-20 md:mt-0 flex flex-col gap-3 md:gap-5 pb-20 md:pb-0">
         {/* Role badge */}
         <motion.div
           variants={scalePop(0.45)}
@@ -583,7 +576,7 @@ const Banner = () => {
             <MagneticIcon key={i} {...s} isDark={isDark} />
           ))}
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* ── SCROLL INDICATOR ── */}
       <motion.div

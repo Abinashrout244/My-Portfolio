@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Loader from "./components/Loader";
 import CustomCursor from "./components/CustomCursor";
+import PortfolioAssistant from "./components/PortfolioAssistant";
 import { useState } from "react";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Header />
         <Home />
         <Footer />
+        <PortfolioAssistant />
       </div>
     </>
   );
