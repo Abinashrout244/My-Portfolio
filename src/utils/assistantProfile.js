@@ -1,3 +1,4 @@
+import { ProjectData } from "./Project";
 export const assistantProfile = {
   name: "Abinash Rout",
   nickname: "Abhi",
@@ -48,6 +49,7 @@ export const assistantProfile = {
     linkedin: "https://www.linkedin.com/in/abinash-rout-274285322",
     twitter: "https://x.com/AbinashRout2251",
     instagram: "https://www.instagram.com/frequency._0.001",
+    contactno: 8249281685,
   },
   summary:
     "Abinash Rout is a MERN Stack Developer and Computer Science Engineering student at Oxford College of Engineering and Management, Bhubaneswar. He is passionate about web development, modern JavaScript frameworks, AI-powered applications, and building responsive full-stack web applications.",
@@ -67,155 +69,234 @@ const formatList = (items) => items.join(", ");
 
 export const answerAssistantQuestion = (question) => {
   const text = question.toLowerCase().trim();
+
   const { contact, education, skills } = assistantProfile;
 
-  if (!text) {
-    return "Ask me about Abhi's education, skills, tech stack, interests, or contact details.";
-  }
+  // =========================
+  // CONTACT - SPECIFIC
+  // =========================
+  if (
+    includesAny(text, [
+      "all contact",
+      "all contacts",
+      "contact details",
+      "contact information",
+      "all contact related info",
+      "how can i contact abhi",
+      "how to contact abhi",
+      "contact abhi",
+      "reach abhi",
+      "connect with abhi",
+    ])
+  )
+    return `📧 Email: ${contact.email}
+
+📱 Phone: +91 ${contact.contactno}
+
+🐙 GitHub:
+${contact.github}
+
+💼 LinkedIn:
+${contact.linkedin}
+
+🐦 Twitter/X:
+${contact.twitter}
+
+📸 Instagram:
+${contact.instagram}
+`;
 
   if (
     includesAny(text, [
-      "who are you",
-      "tell me about yourself",
-      "what does abhi do",
+      "contact number",
+      "phone number",
+      "mobile number",
+      "phone",
+    ])
+  ) {
+    return `Abhi's contact number is +91 ${contact.contactno}`;
+  }
+
+  if (includesAny(text, ["email", "mail"])) {
+    return `Abhi's email is ${contact.email}`;
+  }
+
+  if (includesAny(text, ["github"])) {
+    return `GitHub: ${contact.github}`;
+  }
+
+  if (includesAny(text, ["linkedin"])) {
+    return `LinkedIn: ${contact.linkedin}`;
+  }
+
+  if (includesAny(text, ["instagram"])) {
+    return `Instagram: ${contact.instagram}`;
+  }
+
+  if (includesAny(text, ["twitter", "x profile"])) {
+    return `Twitter/X: ${contact.twitter}`;
+  }
+
+  // =========================
+  // LINKS
+  // =========================
+
+  if (
+    includesAny(text, [
+      "project section",
+      "projects section",
+      "go to projects",
+      "open projects",
+    ])
+  ) {
+    return "#project";
+  }
+
+  if (includesAny(text, ["contact section", "go to contact", "open contact"])) {
+    return "#contact";
+  }
+
+  if (includesAny(text, ["skills section", "go to skills", "open skills"])) {
+    return "#skill";
+  }
+
+  if (
+    includesAny(text, ["about section", "go to aboutpage", "open aboutsection"])
+  ) {
+    return "#about";
+  }
+
+  // =========================
+  // TOP PROJECTS
+  // =========================
+
+  if (
+    includesAny(text, [
+      "top projects",
+      "best projects",
+      "featured projects",
+      "top 3 projects",
+    ])
+  ) {
+    const topProjects = ProjectData.slice(0, 3)
+      .map((project, index) => `${index + 1}. ${project.title}`)
+      .join("\n");
+
+    return `Abhi's top projects:\n\n${topProjects}`;
+  }
+
+  // =========================
+  // TOTAL PROJECTS
+  // =========================
+
+  if (
+    includesAny(text, ["how many projects", "total projects", "project count"])
+  ) {
+    return `Abhi has ${ProjectData.length} featured projects in his portfolio.`;
+  }
+
+  // =========================
+  // SPECIFIC PROJECT DETAILS
+  // =========================
+
+  const project = ProjectData.find(
+    (item) =>
+      text.includes(item.title.toLowerCase()) ||
+      item.title.toLowerCase().includes(text),
+  );
+
+  if (project) {
+    return `
+Project: ${project.title}
+
+${project.desc}
+
+Live Demo:
+${project.Deploy}
+
+GitHub:
+${project.github}
+`;
+  }
+
+  // =========================
+  // ABOUT
+  // =========================
+
+  if (
+    includesAny(text, [
       "who is abhi",
       "who is abinash",
       "about abhi",
       "about abinash",
     ])
   ) {
-    return `I am Abhi's AI Portfolio Assistant. Abhi is a ${assistantProfile.role} and Computer Science Engineering student from Odisha, India. He works with the MERN stack and enjoys building responsive full-stack web applications.`;
+    return assistantProfile.summary;
   }
 
-  if (
-    includesAny(text, [
-      "education",
-      "study",
-      "college",
-      "school",
-      "degree",
-      "b.tech",
-      "btech",
-    ])
-  ) {
-    return `Abhi is pursuing ${education.current.degree} at ${education.current.college}, ${education.current.location}. He completed higher secondary at ${education.higher_secondary.institution} with ${education.higher_secondary.percentage}, and secondary education at ${education.secondary.institution} with ${education.secondary.percentage}.`;
+  // =========================
+  // EDUCATION
+  // =========================
+
+  if (includesAny(text, ["education", "college", "degree", "study", "btech"])) {
+    return `
+${education.current.degree}
+
+College:
+${education.current.college}
+
+Status:
+${education.current.status}
+`;
   }
 
-  if (
-    includesAny(text, [
-      "skill",
-      "technology",
-      "technologies",
-      "tech stack",
-      "stack",
-      "tools",
-    ])
-  ) {
-    return `Abhi works with ${formatList(assistantProfile.tech_stack)}. His frontend skills include ${formatList(skills.frontend)}. He also works with ${formatList(skills.backend)}, ${formatList(skills.database)}, ${formatList(skills.other)}.`;
+  // =========================
+  // SKILLS
+  // =========================
+
+  if (includesAny(text, ["skills", "tech stack", "technologies", "stack"])) {
+    return `
+Tech Stack:
+${formatList(assistantProfile.tech_stack)}
+
+Frontend:
+${formatList(skills.frontend)}
+
+Backend:
+${formatList(skills.backend)}
+
+Database:
+${formatList(skills.database)}
+`;
   }
 
-  if (
-    includesAny(text, [
-      "frontend",
-      "front end",
-      "react",
-      "javascript",
-      "html",
-      "css",
-      "tailwind",
-      "next",
-    ])
-  ) {
-    return `Abhi's frontend skills include ${formatList(skills.frontend)}. He focuses on responsive web design and modern JavaScript frameworks.`;
-  }
+  // =========================
+  // INTERESTS
+  // =========================
 
   if (
-    includesAny(text, [
-      "backend",
-      "back end",
-      "node",
-      "express",
-      "api",
-      "database",
-      "mongodb",
-    ])
-  ) {
-    return `Abhi's backend and database skills include ${formatList(skills.backend)} and ${formatList(skills.database)}. He also works with REST APIs.`;
-  }
-
-  if (
-    includesAny(text, [
-      "contact",
-      "email",
-      "mail",
-      "linkedin",
-      "github",
-      "twitter",
-      "x.com",
-      "instagram",
-      "connect",
-    ])
-  ) {
-    return `You can contact Abhi by email at ${contact.email}. His GitHub is ${contact.github}, LinkedIn is ${contact.linkedin}, Twitter/X is ${contact.twitter}, and Instagram is ${contact.instagram}.`;
-  }
-  if (
-    includesAny(text, [
-      "birth date",
-      "birthday",
-      "date of birth",
-      "dob",
-      "when was abhi born",
-    ])
-  ) {
-    return `Abhi's date of birth is ${assistantProfile.birthDate}.`;
-  }
-  if (
-    includesAny(text, ["location", "from", "live", "city", "state", "country"])
-  ) {
-    return `Abhi is from ${assistantProfile.location.city}, ${assistantProfile.location.state}, ${assistantProfile.location.country}.`;
-  }
-
-  if (
-    includesAny(text, [
-      "interest",
-      "passion",
-      "likes",
-      "open source",
-      "ai",
-      "generative",
-    ])
+    includesAny(text, ["interests", "passion", "likes", "ai", "open source"])
   ) {
     return `Abhi is interested in ${formatList(assistantProfile.interests)}.`;
   }
 
-  if (
-    includesAny(text, [
-      "project",
-      "experience",
-      "achievement",
-      "achievements",
-      "certificate",
-      "certification",
-      "resume",
-    ])
-  ) {
-    return "I don't have that information in Abhi's portfolio.";
+  // =========================
+  // GENERIC CONTACT
+  // =========================
+
+  if (includesAny(text, ["contact", "connect", "reach"])) {
+    return `
+Email: ${contact.email}
+
+Phone: +91 ${contact.contactno}
+
+GitHub:
+${contact.github}
+
+LinkedIn:
+${contact.linkedin}
+`;
   }
 
-  if (
-    includesAny(text, [
-      "code",
-      "coding",
-      "programming",
-      "interview",
-      "career",
-      "javascript",
-      "react",
-      "mern",
-    ])
-  ) {
-    return "Sure. Ask a specific coding, interview, or career question and I will explain it clearly with practical examples.";
-  }
-
-  return "I can help with questions about Abhi's education, skills, interests, and contact details. For Abhi-specific details not listed in the portfolio, I don't have that information in Abhi's portfolio.";
+  return "I can help with information about Abhi's skills, projects, education, interests, contact details, and portfolio sections.";
 };

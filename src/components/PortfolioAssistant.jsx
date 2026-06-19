@@ -16,6 +16,7 @@ const PortfolioAssistant = () => {
   const inputRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [hasAskedQuestion, setHasAskedQuestion] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -40,12 +41,25 @@ const PortfolioAssistant = () => {
       { role: "user", text: trimmed },
       { role: "assistant", text: answerAssistantQuestion(trimmed) },
     ]);
+    setHasAskedQuestion(true);
     setInput("");
   };
 
   const openAssistant = () => {
     setIsOpen(true);
     window.setTimeout(() => inputRef.current?.focus(), 120);
+  };
+  const handleNavigation = (target) => {
+    const section = document.querySelector(target);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -81,7 +95,6 @@ const PortfolioAssistant = () => {
                 <X size={18} />
               </button>
             </div>
-
             <div
               data-lenis-prevent
               onWheel={(event) => event.stopPropagation()}
@@ -93,31 +106,44 @@ const PortfolioAssistant = () => {
                   key={`${message.role}-${index}`}
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <p
+                  <div
                     className={`max-w-[84%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                       message.role === "user"
                         ? "bg-red-600 text-white"
                         : "bg-white/10 text-white/82"
                     }`}
                   >
-                    {message.text}
-                  </p>
+                    {message.text.startsWith("#") ? (
+                      <button
+                        onClick={() => handleNavigation(message.text)}
+                        className="font-medium text-red-300 underline"
+                      >
+                        Open {message.text.replace("#", "")} section
+                      </button>
+                    ) : (
+                      message.text
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-2 border-t border-white/10 px-4 py-3">
-              {starterQuestions.map((question) => (
-                <button
-                  key={question}
-                  type="button"
-                  onClick={() => sendMessage(question)}
-                  className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/65 transition hover:border-red-400/40 hover:bg-red-500/10 hover:text-white"
-                >
-                  {question}
-                </button>
-              ))}
-            </div>
+            {/* The starter question before user asked anything to the chatbot */}
+
+            {!hasAskedQuestion && (
+              <div className="flex flex-wrap gap-2 border-t border-white/10 px-4 py-3">
+                {starterQuestions.map((question) => (
+                  <button
+                    key={question}
+                    type="button"
+                    onClick={() => sendMessage(question)}
+                    className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-white/65 transition hover:border-red-400/40 hover:bg-red-500/10 hover:text-white"
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <form
               onSubmit={(event) => {
