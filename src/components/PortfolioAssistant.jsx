@@ -1,6 +1,6 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, Send, X } from "lucide-react";
+import { Bot, Send, X, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { answerAssistantQuestion } from "../utils/assistantProfile";
 
@@ -14,13 +14,15 @@ const PortfolioAssistant = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const inputRef = useRef(null);
+  const messagesEndRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [hasAskedQuestion, setHasAskedQuestion] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "Hi, I am Abhi's AI Portfolio Assistant. Ask me about Abhi's education, skills, interests, or contact details.",
+      text: `✦ I'm Aster, your gateway to Abhi's portfolio.
+Explore his projects, skills, education, experience, and aspirations through a simple conversation. What would you like to discover?`,
     },
   ]);
 
@@ -44,6 +46,15 @@ const PortfolioAssistant = () => {
     setHasAskedQuestion(true);
     setInput("");
   };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [messages, isOpen]);
 
   const openAssistant = () => {
     setIsOpen(true);
@@ -79,10 +90,10 @@ const PortfolioAssistant = () => {
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/15 text-red-300">
-                  <Bot size={20} />
+                  <Sparkles size={20} />
                 </span>
                 <div>
-                  <h2 className="text-sm font-bold">Abhi's Assistant</h2>
+                  <h2 className="text-sm font-bold">Aster</h2>
                   <p className="text-xs text-white/45">Portfolio guide</p>
                 </div>
               </div>
@@ -126,6 +137,7 @@ const PortfolioAssistant = () => {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} aria-hidden="true" />
             </div>
 
             {/* The starter question before user asked anything to the chatbot */}
