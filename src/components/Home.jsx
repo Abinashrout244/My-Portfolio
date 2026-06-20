@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "./Banner";
 import About from "./About";
 import Skill from "./Skill";
+import Education from "./Education";
 import Project from "./Project";
 import Contact from "./Contact";
 import { useTheme } from "../context/ThemeContext";
@@ -21,6 +22,7 @@ const Home = () => {
       <Banner />
       <About />
       <Skill />
+      <Education />
       <Project />
       <div className="pb-36">
         <Contact />
