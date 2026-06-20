@@ -42,7 +42,7 @@ const StatCard = ({ value, suffix, label, delay, isDark }) => (
     {/* Glow on hover */}
     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl
       ${isDark ? "bg-white/3" : "bg-pink-500/5"}`} />
-    <p className={`text-3xl md:text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r
+    <p className={`text-3xl md:text-4xl font-black bg-clip-text text-transparent bg-linear-to-r
       ${isDark ? "from-white to-gray-400" : "from-pink-500 to-indigo-400"}`}>
       <CountUp to={value} suffix={suffix} />
     </p>
@@ -107,7 +107,7 @@ const About = () => {
           className="text-4xl md:text-6xl font-black tracking-tighter"
         >
           About{" "}
-          <span className={`italic bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500
+          <span className={`italic bg-clip-text text-transparent bg-linear-to-r transition-all duration-500
             ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}>
             Me.
           </span>
@@ -119,22 +119,22 @@ const About = () => {
 
         {/* LEFT: Image — GSAP animated */}
         <div ref={imageRef} className="w-full md:w-[45%] flex flex-col items-center justify-center relative">
-          <div className="relative group w-[300px] md:w-[400px] lg:w-[450px] [perspective:1500px]">
-            <div className="relative w-full h-[350px] md:h-[500px] lg:h-[550px] transition-transform duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+          <div className="relative group w-[300px] md:w-[400px] lg:w-[450px] perspective-1500px">
+            <div className="relative w-full h-[350px] md:h-[500px] lg:h-[550px] transition-transform duration-1000 transform-3d group-hover:transform:rotateY(180deg)">
 
               {/* FRONT */}
-              <div className={`absolute inset-0 [backface-visibility:hidden] p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
-                ${isDark ? "bg-[#1e1e1e] border-white/10" : "bg-gradient-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
-                <div className="rounded-[2rem] overflow-hidden bg-gray-200 dark:bg-[#121212] h-full w-full">
+              <div className={`absolute inset-0 backface-hidden p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
+                ${isDark ? "bg-[#1e1e1e] border-white/10" : "bg-linear-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
+                <div className="rounded-4xl overflow-hidden bg-gray-200 dark:bg-[#121212] h-full w-full">
                   <img src={img}
-                    alt="Avi Anime" className="h-full w-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" />
+                    alt="Avi Anime" className="h-full w-full object-cover grayscale-30 group-hover:grayscale-0 transition-all duration-700" />
                 </div>
               </div>
 
               {/* BACK */}
-              <div className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
-                ${isDark ? "bg-[#1e1e1e] border-indigo-500/40" : "bg-gradient-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
-                <div className="rounded-[2rem] overflow-hidden h-full w-full">
+              <div className={`absolute inset-0 backface-hidden transform:rotateY(180deg) p-2 backdrop-blur-md rounded-[2.5rem] border shadow-2xl
+                ${isDark ? "bg-[#1e1e1e] border-indigo-500/40" : "bg-linear-to-r from-indigo-500 to-cyan-500 border-2 border-white/50"}`}>
+                <div className="rounded-4xl overflow-hidden h-full w-full">
                  <img src="https://static.vecteezy.com/system/resources/previews/021/907/517/large_2x/anime-boy-avatar-ai-generative-art-ai-generation-art-photo.jpg" alt="Abinash Rout Real" className="h-full w-full object-cover group-hover:scale-105 transition-all duration-700" />
                 </div>
               </div>
@@ -147,19 +147,19 @@ const About = () => {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="relative z-20 -mt-10 w-[240px] md:w-[320px] h-[80px] md:h-[100px] [perspective:1000px] group"
           >
-            <div className="relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-              <div className={`absolute inset-0 [backface-visibility:hidden] border flex flex-col items-center justify-center rounded-[2rem] shadow-xl
+            <div className="relative w-full h-full transition-transform duration-700 transform-3d group-hover:transform:rotateY(180deg)">
+              <div className={`absolute inset-0 backface-hidden border flex flex-col items-center justify-center rounded-4xl shadow-xl
                 ${isDark ? "bg-[#1e1e1e] border-white/10" : "bg-[#0f172a]/80 backdrop-blur-2xl border border-pink-400"}`}>
                 <h2 className="text-center text-lg font-bold">
-                  <span className={`block font-black uppercase tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-r
+                  <span className={`block font-black uppercase tracking-[0.2em] bg-clip-text text-transparent bg-linear-to-r
                     ${isDark ? "from-white to-gray-500" : "from-pink-500 to-rose-500"}`}>MERNSTACK</span>
                   <span className={isDark ? "text-gray-400" : "text-white"}>DEVELOPER</span>
                 </h2>
               </div>
-              <div className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] backdrop-blur-2xl flex flex-col items-center justify-center rounded-[2rem] shadow-xl
+              <div className={`absolute inset-0 backface-hidden transform:rotateY(180deg) backdrop-blur-2xl flex flex-col items-center justify-center rounded-4xl shadow-xl
                 ${isDark ? "bg-[#1e1e1e] border-indigo-500/40" : "bg-[#0f172a]/90 border-indigo-500/40"}`}>
                 <h2 className="text-center text-lg font-bold">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-500 block font-black uppercase tracking-[0.2em]">FULLSTACK</span>
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-cyan-500 block font-black uppercase tracking-[0.2em]">FULLSTACK</span>
                   <span className={isDark ? "text-gray-400" : "text-white"}>DEVELOPER</span>
                 </h2>
               </div>
@@ -187,7 +187,7 @@ const About = () => {
               className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tighter uppercase italic"
             >
               Turning Ideas <br />
-              <span className={`text-transparent bg-clip-text bg-gradient-to-r
+              <span className={`text-transparent bg-clip-text bg-linear-to-r
                 ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}>
                 Into Interfaces
               </span>
@@ -225,6 +225,8 @@ const About = () => {
       {/* Ambient glow */}
       <div className={`absolute top-1/2 left-0 w-72 h-72 rounded-full blur-[120px] -z-10 animate-pulse
         ${isDark ? "bg-gray-500/5" : "bg-pink-600/10"}`} />
+
+     
     </section>
   );
 };

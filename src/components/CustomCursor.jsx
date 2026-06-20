@@ -77,7 +77,7 @@ const CustomCursor = () => {
         style={{ translateX: dotX, translateY: dotY, opacity: isVisible ? 1 : 0 }}
         animate={{ scale: isHovering ? 0 : 1 }}
         transition={{ scale: { duration: 0.2 } }}
-        className="fixed top-0 left-0 z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 z-9998 pointer-events-none -translate-x-1/2 -translate-y-1/2"
       >
         <div
           className="w-2 h-2 rounded-full transition-colors duration-200"
@@ -95,7 +95,7 @@ const CustomCursor = () => {
             : ringColor,
         }}
         transition={{ scale: { type: "spring", stiffness: 200, damping: 20 } }}
-        className="fixed top-0 left-0 z-[9997] pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border"
+        className="fixed top-0 left-0 z-9997 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full border"
       >
         <div
           className="w-9 h-9 rounded-full border transition-colors duration-300"

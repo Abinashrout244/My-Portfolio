@@ -69,7 +69,7 @@ const Project = () => {
   return (
     <div
       ref={sectionTopRef}
-      className="scroll-mt-24 pt-6 md:pt-20 px-6 md:px-28 py-20 bg-transparent"
+      className="scroll-mt-24 relative overflow-hidden pt-6 md:pt-20 px-6 md:px-28 py-20 bg-transparent"
       id="project"
     >
       {/* Header */}
@@ -83,7 +83,7 @@ const Project = () => {
         >
           My{" "}
           <span
-            className={`bg-clip-text text-transparent bg-gradient-to-r ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}
+            className={`bg-clip-text text-transparent bg-linear-to-r ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}
           >
             Projects
           </span>
@@ -92,7 +92,7 @@ const Project = () => {
           initial={{ width: 0 }}
           whileInView={{ width: "100px" }}
           viewport={{ once: true }}
-          className={`h-1.5 rounded-full ${isDark ? "bg-gray-600" : "bg-gradient-to-r from-pink-500 to-indigo-500"}`}
+          className={`h-1.5 rounded-full ${isDark ? "bg-gray-600" : "bg-linear-to-r from-pink-500 to-indigo-500"}`}
         />
       </div>
 
@@ -132,7 +132,7 @@ const Project = () => {
                     ${isDark ? "bg-[#1e1e1e] border-white/5 hover:border-gray-500/50" : "bg-white/10 backdrop-blur-md border border-white/10 hover:border-pink-500/30"}`}
                 >
                   {/* Image area */}
-                  <div className="relative overflow-hidden h-[240px] m-3 rounded-[1.8rem]">
+                  <div className="relative overflow-hidden h-60 m-3 rounded-[1.8rem]">
                     <a
                       href={item.Deploy}
                       target="_blank"
@@ -164,7 +164,7 @@ const Project = () => {
                       </div>
 
                       <div
-                        className={`absolute inset-0 opacity-80 pointer-events-none ${isDark ? "bg-gradient-to-t from-[#121212]" : "bg-gradient-to-t from-slate-900/60"}`}
+                        className={`absolute inset-0 opacity-80 pointer-events-none ${isDark ? "bg-linear-to-t from-[#121212]" : "bg-linear-to-t from-slate-900/60"}`}
                       />
                     </a>
 
@@ -228,7 +228,7 @@ const Project = () => {
                         }}
                         whileTap={{ scale: 0.97 }}
                         className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider text-white
-                          ${isDark ? "bg-gradient-to-r from-gray-600 to-gray-400" : "bg-gradient-to-r from-pink-600 to-indigo-600 shadow-pink-500/20"}`}
+                          ${isDark ? "bg-linear-to-r from-gray-600 to-gray-400" : "bg-linear-to-r from-pink-600 to-indigo-600 shadow-pink-500/20"}`}
                       >
                         <ExternalLink size={12} /> Preview
                       </motion.a>
@@ -267,6 +267,8 @@ const Project = () => {
           </span>
         </motion.button>
       </div>
+
+     
     </div>
   );
 };

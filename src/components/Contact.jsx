@@ -85,7 +85,7 @@ const Contact = () => {
             className={`text-4xl md:text-6xl font-black tracking-tighter ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
           >
             LET'S{" "}
-            <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}>
+            <span className={`bg-clip-text text-transparent bg-linear-to-r ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}>
               CONNECT.
             </span>
           </motion.h1>
@@ -122,11 +122,11 @@ const Contact = () => {
             className="relative"
           >
             {/* Animated conic gradient border */}
-            <div className="absolute -inset-[1px] rounded-[2rem] overflow-hidden pointer-events-none z-0">
+            <div className="absolute -inset-px rounded-4xl overflow-hidden pointer-events-none z-0">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-[-100%] w-[300%] h-[300%]"
+                className="absolute -inset-full w-[300%] h-[300%]"
                 style={{
                   background: isDark
                     ? "conic-gradient(from 0deg, transparent 0deg, #6b7280 60deg, transparent 120deg)"
@@ -136,12 +136,12 @@ const Contact = () => {
               />
             </div>
 
-            <div className={`relative z-10 backdrop-blur-2xl border p-8 md:p-12 rounded-[2rem] shadow-2xl transition-all duration-500
+            <div className={`relative z-10 backdrop-blur-2xl border p-8 md:p-12 rounded-4xl shadow-2xl transition-all duration-500
               ${isDark ? "bg-[#1e1e1e]/90 border-white/10" : "bg-white/10 border-white/15"}`}
             >
               <h2 className="text-2xl font-bold text-white mb-8 tracking-tight flex items-center gap-3">
                 Send a Message
-                <span className={`flex-grow h-[1px] max-w-[60px] ${isDark ? "bg-gray-700" : "bg-pink-500/40"}`} />
+                <span className={`grow h-px max-w-[60px] ${isDark ? "bg-gray-700" : "bg-pink-500/40"}`} />
               </h2>
 
               <motion.form
@@ -178,7 +178,7 @@ const Contact = () => {
                   whileTap={status === "idle" ? { scale: 0.98 } : {}}
                   type="submit"
                   disabled={status === "loading" || status === "success"}
-                  className={`w-full py-4 mt-2 rounded-xl text-white font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 shadow-lg transition-all duration-500 bg-gradient-to-r ${btnGradient} ${
+                  className={`w-full py-4 mt-2 rounded-xl text-white font-bold tracking-widest uppercase text-sm flex items-center justify-center gap-3 shadow-lg transition-all duration-500 bg-linear-to-r ${btnGradient} ${
                     status === "loading" || status === "success" ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
                 >
@@ -189,6 +189,7 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
+
     </section>
   );
 };

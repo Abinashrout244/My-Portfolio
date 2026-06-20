@@ -194,7 +194,7 @@ const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
     >
       {/* Gradient top bar */}
       <div
-        className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${isDark ? item.color.dark : item.color.light}`}
+        className={`absolute top-0 left-0 right-0 h-[3px] bg-linear-to-r ${isDark ? item.color.dark : item.color.light}`}
       />
 
       {/* Hover glow overlay */}
@@ -211,7 +211,7 @@ const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
           <div className="flex items-center gap-3">
             {/* Degree type pill */}
             <span
-              className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-gradient-to-r ${isDark ? item.color.dark : item.color.light} text-white`}
+              className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-linear-to-r ${isDark ? item.color.dark : item.color.light} text-white`}
             >
               {item.type}
             </span>
@@ -239,7 +239,7 @@ const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
           {item.degree}
         </h3>
         <p
-          className={`text-sm font-semibold mb-5 bg-gradient-to-r bg-clip-text text-transparent ${isDark ? item.color.dark : item.color.light}`}
+          className={`text-sm font-semibold mb-5 bg-linear-to-r bg-clip-text text-transparent ${isDark ? item.color.dark : item.color.light}`}
         >
           {item.field}
         </p>
@@ -288,7 +288,7 @@ const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
               initial={{ width: 0 }}
               animate={inView ? { width: item.gradeLabel === "CGPA" ? "82%" : item.grade } : {}}
               transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: index * 0.15 + 0.4 }}
-              className={`h-full rounded-full bg-gradient-to-r ${isDark ? item.color.dark : item.color.light}`}
+              className={`h-full rounded-full bg-linear-to-r ${isDark ? item.color.dark : item.color.light}`}
             />
           </div>
         </div>
@@ -375,7 +375,7 @@ const Education = () => {
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
             Edu
             <span
-              className={`italic bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500
+              className={`italic bg-clip-text text-transparent bg-linear-to-r transition-all duration-500
                 ${isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"}`}
             >
               cation
@@ -409,7 +409,7 @@ const Education = () => {
           }}
         >
           <span
-            className="absolute left-1/2 -translate-x-1/2 -top-[4px] w-2.5 h-2.5 rounded-full"
+            className="absolute left-1/2 -translate-x-1/2 -top-1 w-2.5 h-2.5 rounded-full"
             style={{
               background: isDark ? "#f472b6" : "#ec4899",
               boxShadow: isDark ? "0 0 8px rgba(244,114,182,0.8)" : "0 0 8px rgba(236,72,153,0.8)",
@@ -424,12 +424,12 @@ const Education = () => {
 
           {/* ── LEFT: TIMELINE ── */}
           <div
-            className="flex-shrink-0 flex flex-col items-center"
+            className="shrink-0 flex flex-col items-center"
             aria-hidden="true"
           >
             {/* Vertical track */}
             <div
-              className="relative w-[2px] rounded-full overflow-hidden"
+              className="relative w-0.5 rounded-full overflow-hidden"
               style={{
                 height: "100%",
                 background: isDark ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.1)",

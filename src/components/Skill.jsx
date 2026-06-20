@@ -120,7 +120,7 @@ const Skill = () => {
         >
           Tech Stack &{" "}
           <span
-            className={`italic bg-clip-text text-transparent bg-gradient-to-r transition-all duration-500 ${
+            className={`italic bg-clip-text text-transparent bg-linear-to-r transition-all duration-500 ${
               isDark ? "from-white to-gray-500" : "from-pink-500 to-indigo-500"
             }`}
           >
@@ -173,7 +173,7 @@ const Skill = () => {
                     whileInView={{ width: item.width }}
                     viewport={{ once: true }}
                     transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: index * 0.06 }}
-                    className={`h-full bg-gradient-to-r ${item.color} rounded-full`}
+                    className={`h-full bg-linear-to-r ${item.color} rounded-full`}
                   />
                 </div>
               </motion.li>
@@ -209,8 +209,8 @@ const Skill = () => {
               layoutId="tab-bg"
               className={`absolute inset-y-1.5 rounded-full ${
                 isDark
-                  ? "bg-gradient-to-r from-gray-600 to-gray-500"
-                  : "bg-gradient-to-r from-pink-600 to-indigo-600"
+                  ? "bg-linear-to-r from-gray-600 to-gray-500"
+                  : "bg-linear-to-r from-pink-600 to-indigo-600"
               }`}
               animate={{
                 left: tab === "skill" ? "6px" : tab === "tool" ? "33.3%" : "66.6%",
@@ -222,7 +222,7 @@ const Skill = () => {
 
           {/* ICON GRID */}
           <div
-            className={`flex-grow rounded-[2rem] border p-8 backdrop-blur-sm min-h-[400px] transition-colors ${
+            className={`grow rounded-4xl border p-8 backdrop-blur-sm min-h-[400px] transition-colors ${
               isDark
                 ? "bg-[#121212]/50 border-white/5"
                 : "bg-[#0f172a]/50 border border-white/10"
@@ -271,6 +271,9 @@ const Skill = () => {
           </div>
         </div>
       </div>
+
+      
+     
     </section>
   );
 };
