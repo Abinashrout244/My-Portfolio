@@ -5,6 +5,8 @@ import {
   faLink,
   faBars,
   faXmark,
+  faFileArrowDown
+
 } from "@fortawesome/free-solid-svg-icons";
 import {
   motion,
@@ -190,26 +192,46 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-5 relative z-1002">
-            <a
-              href="https://drive.google.com/file/d/1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD/view?usp=drivesdk"
-              target="_blank"
-              className="hidden sm:block"
-            >
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                className={`relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-full
-                  ${isDark ? "bg-gray-600" : "bg-linear-to-br from-pink-500 to-indigo-500"}`}
-              >
-                <span
-                  className={`relative px-5 py-2 transition-all ease-in duration-75 rounded-full group-hover:bg-opacity-0
-                  ${isDark ? "bg-[#121212] text-gray-300" : "bg-[#0f172a] text-white"}`}
-                >
-                  RESUME
-                  <FontAwesomeIcon icon={faLink} className="ml-2 text-xs" />
-                </span>
-              </motion.button>
-            </a>
+        <a
+  href="https://drive.google.com/file/d/1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD/view?usp=drivesdk"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hidden sm:block"
+>
+  <motion.div
+    whileHover={{ scale: 1.03, y: -1 }}
+    whileTap={{ scale: 0.97 }}
+    className={`
+      group flex items-center gap-2
+      px-5 py-2.5 rounded-xl
+      border backdrop-blur-md
+      transition-all duration-300
+      ${
+        isDark
+          ? "bg-white/5 border-white/10 hover:border-cyan-400/40 hover:bg-white/10"
+          : "bg-white/80 border-slate-200 hover:border-indigo-400"
+      }
+    `}
+  >
+    <FontAwesomeIcon
+      icon={faFileArrowDown}
+      className={`
+        text-sm transition-transform duration-300
+        group-hover:rotate-6
+        ${isDark ? "text-cyan-400" : "text-indigo-600"}
+      `}
+    />
+
+    <span
+      className={`
+        font-medium text-sm
+        ${isDark ? "text-white" : "text-slate-800"}
+      `}
+    >
+      Resume
+    </span>
+  </motion.div>
+</a>
 
             <ThemeToggle />
 
