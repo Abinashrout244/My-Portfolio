@@ -267,8 +267,6 @@ const Project = () => {
           </span>
         </motion.button>
       </div>
-
-     
     </div>
   );
 };

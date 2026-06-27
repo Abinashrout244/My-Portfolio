@@ -5,8 +5,7 @@ import {
   faLink,
   faBars,
   faXmark,
-  faFileArrowDown
-
+  faFileArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   motion,
@@ -27,6 +26,7 @@ const navLinks = [
   { name: "Home", href: "#home", section: "home" },
   { name: "About", href: "#about", section: "about" },
   { name: "Skills", href: "#skill", section: "skill" },
+  { name: "Education", href: "#education", section: "education" },
   { name: "Projects", href: "#project", section: "project" },
   { name: "Contact", href: "#contact", section: "contact" },
 ];
@@ -109,6 +109,21 @@ const Header = () => {
     return () => observers.forEach((o) => o?.disconnect());
   }, []);
 
+  const handleNavClick = (event, href) => {
+    event.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    setIsOpen(false);
+    const headerOffset = 110;
+    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(elementPosition - headerOffset, 0),
+      behavior: "smooth",
+    });
+  };
+
   const logoMag = useMagnetic(0.2);
 
   return (
@@ -124,36 +139,36 @@ const Header = () => {
           }`}
         >
           {/* Logo — magnetic */}
-         <motion.div
-  ref={logoMag.ref}
-  style={{ x: logoMag.springX, y: logoMag.springY }}
-  className="flex items-center gap-3 group relative z-1002 cursor-pointer"
->
-  <div
-    className={`relative p-2 rounded-lg border transition-colors duration-500 ${isDark ? "bg-[#121212] border-white/10" : "bg-white/10 border-white/20"}`}
-  >
-    <FontAwesomeIcon
-      icon={faCode}
-      className={`text-xl transition-colors ${isDark ? "text-gray-400" : "text-pink-500"}`}
-    />
-    <span
-      className={`absolute inset-0 rounded-lg border opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 ${isDark ? "border-gray-600" : "border-pink-500/50"}`}
-    />
-  </div>
+          <motion.div
+            ref={logoMag.ref}
+            style={{ x: logoMag.springX, y: logoMag.springY }}
+            className="flex items-center gap-3 group relative z-1002 cursor-pointer"
+          >
+            <div
+              className={`relative p-2 rounded-lg border transition-colors duration-500 ${isDark ? "bg-[#121212] border-white/10" : "bg-white/10 border-white/20"}`}
+            >
+              <FontAwesomeIcon
+                icon={faCode}
+                className={`text-xl transition-colors ${isDark ? "text-gray-400" : "text-pink-500"}`}
+              />
+              <span
+                className={`absolute inset-0 rounded-lg border opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500 ${isDark ? "border-gray-600" : "border-pink-500/50"}`}
+              />
+            </div>
 
-  <div className="flex flex-col gap-0">
-    <h2
-      className={`text-xl font-black tracking-tighter uppercase italic transition-colors leading-none ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
-    >
-      Avi Dev
-    </h2>
-    <span
-      className={`text-[9px] font-mono tracking-[2.5px] uppercase transition-colors ${isDark ? "text-white/30" : "text-white/50"}`}
-    >
-      MERN Stack
-    </span>
-  </div>
-</motion.div>
+            <div className="flex flex-col gap-0">
+              <h2
+                className={`text-xl font-black tracking-tighter uppercase italic transition-colors leading-none ${isDark ? "text-[#e0e0e0]" : "text-white"}`}
+              >
+                Avi Dev
+              </h2>
+              <span
+                className={`text-[9px] font-mono tracking-[2.5px] uppercase transition-colors ${isDark ? "text-white/30" : "text-white/50"}`}
+              >
+                MERN Stack
+              </span>
+            </div>
+          </motion.div>
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
@@ -162,6 +177,7 @@ const Header = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(event) => handleNavClick(event, link.href)}
                   className={`text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 relative group ${
                     isActive
                       ? isDark
@@ -192,16 +208,16 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-5 relative z-1002">
-        <a
-  href="https://drive.google.com/file/d/1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD/view?usp=drivesdk"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hidden sm:block"
->
-  <motion.div
-    whileHover={{ scale: 1.03, y: -1 }}
-    whileTap={{ scale: 0.97 }}
-    className={`
+            <a
+              href="https://drive.google.com/file/d/1MXVXgnLh9UW3OEVKifR_x-3C0VHb92rD/view?usp=drivesdk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:block"
+            >
+              <motion.div
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                className={`
       group flex items-center gap-2
       px-5 py-2.5 rounded-xl
       border backdrop-blur-md
@@ -212,26 +228,26 @@ const Header = () => {
           : "bg-white/80 border-slate-200 hover:border-indigo-400"
       }
     `}
-  >
-    <FontAwesomeIcon
-      icon={faFileArrowDown}
-      className={`
+              >
+                <FontAwesomeIcon
+                  icon={faFileArrowDown}
+                  className={`
         text-sm transition-transform duration-300
         group-hover:rotate-6
         ${isDark ? "text-cyan-400" : "text-indigo-600"}
       `}
-    />
+                />
 
-    <span
-      className={`
-        font-medium text-sm
+                <span
+                  className={`
+        font-bold text-sm
         ${isDark ? "text-white" : "text-slate-800"}
       `}
-    >
-      Resume
-    </span>
-  </motion.div>
-</a>
+                >
+                  Resume
+                </span>
+              </motion.div>
+            </a>
 
             <ThemeToggle />
 
@@ -283,7 +299,7 @@ const Header = () => {
                   >
                     <a
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(event) => handleNavClick(event, link.href)}
                       className={`group flex items-center gap-4 text-3xl font-bold transition-all tracking-tight
                         ${isDark ? "text-white hover:text-gray-400" : "text-white hover:text-pink-500"}`}
                     >

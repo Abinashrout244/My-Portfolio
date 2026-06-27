@@ -1,7 +1,7 @@
 import { ProjectData } from "./Project";
 export const assistantProfile = {
   name: "Abinash Rout",
-  nickname: "Abhi",
+  nickname: "AVI",
   birthDate: "1 Oct 2007",
   location: {
     city: "Jajpur",
@@ -70,7 +70,27 @@ const formatList = (items) => items.join(", ");
 export const answerAssistantQuestion = (question) => {
   const text = question.toLowerCase().trim();
 
-  const { contact, education, skills } = assistantProfile;
+  const { contact, education, skills, nickname, name } = assistantProfile;
+
+  if (
+    includesAny(text, [
+      "abinash nickname",
+      "nickname",
+      "homename",
+      "nickname of Abinash",
+    ])
+  )
+    return `Abinash's Nickname is ${nickname}`;
+  if (
+    includesAny(text, [
+      "avi fullname",
+      "fullname",
+      "certificatename",
+      "fullname of Avi",
+      "owner",
+    ])
+  )
+    return ` Mr.  ${name}`;
 
   // =========================
   // CONTACT - SPECIFIC

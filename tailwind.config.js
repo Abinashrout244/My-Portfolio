@@ -5,6 +5,10 @@ export default {
   darkMode: "class", // This is the magic line
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["'JetBrains Mono'", "monospace"],
+        mono: ["'JetBrains Mono'", "monospace"],
+      },
       colors: {
         // Custom Gray/Black palette for your new theme
         darkBg: "#121212",
