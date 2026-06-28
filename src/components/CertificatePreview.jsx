@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { X, Download, CheckCircle2 } from "lucide-react";
+import { X, Download,CheckCircle2 } from "lucide-react";
 
 const CertificatePreview = ({ item, document, isDark, onClose }) => {
   const [downloading, setDownloading] = useState(false);
