@@ -67,36 +67,48 @@ const includesAny = (text, terms) => terms.some((term) => text.includes(term));
 
 const formatList = (items) => items.join(", ");
 
-export const answerAssistantQuestion = (question) => {
-  const text = question.toLowerCase().trim();
+const fmt = (label, value) => ({ type: "field", label, value });
+const url = (value) => ({ type: "url", value });
+const heading = (value) => ({ type: "heading", value });
+const text = (value) => ({ type: "text", value });
+const numbered = (num, value) => ({ type: "numbered", num, value });
+const tag = (value) => ({ type: "tag", value });
+const divider = () => ({ type: "divider" });
 
+export const answerAssistantQuestion = (question) => {
+  const q = question.toLowerCase().trim();
   const { contact, education, skills, nickname, name } = assistantProfile;
 
+  // =========================
+  // NAME / NICKNAME
+  // =========================
   if (
-    includesAny(text, [
+    includesAny(q, [
       "abinash nickname",
       "nickname",
       "homename",
-      "nickname of Abinash",
+      "nickname of abinash",
     ])
   )
-    return `Abinash's Nickname is ${nickname}`;
+    return [text(`Abinash's nickname is`), tag(nickname)];
+
   if (
-    includesAny(text, [
+    includesAny(q, [
       "avi fullname",
       "fullname",
       "certificatename",
-      "fullname of Avi",
+      "fullname of avi",
       "owner",
+      "name",
     ])
   )
-    return ` Mr.  ${name}`;
+    return [text("Full name:"), tag(`Mr. ${name}`)];
 
   // =========================
-  // CONTACT - SPECIFIC
+  // CONTACT - ALL
   // =========================
   if (
-    includesAny(text, [
+    includesAny(q, [
       "all contact",
       "all contacts",
       "contact details",
@@ -109,214 +121,203 @@ export const answerAssistantQuestion = (question) => {
       "connect with abhi",
     ])
   )
-    return `📧 Email: ${contact.email}
-
-📱 Phone: +91 ${contact.contactno}
-
-🐙 GitHub:
-${contact.github}
-
-💼 LinkedIn:
-${contact.linkedin}
-
-🐦 Twitter/X:
-${contact.twitter}
-
-📸 Instagram:
-${contact.instagram}
-`;
-
-  if (
-    includesAny(text, [
-      "contact number",
-      "phone number",
-      "mobile number",
-      "phone",
-    ])
-  ) {
-    return `Abhi's contact number is +91 ${contact.contactno}`;
-  }
-
-  if (includesAny(text, ["email", "mail"])) {
-    return `Abhi's email is ${contact.email}`;
-  }
-
-  if (includesAny(text, ["github"])) {
-    return `GitHub: ${contact.github}`;
-  }
-
-  if (includesAny(text, ["linkedin"])) {
-    return `LinkedIn: ${contact.linkedin}`;
-  }
-
-  if (includesAny(text, ["instagram"])) {
-    return `Instagram: ${contact.instagram}`;
-  }
-
-  if (includesAny(text, ["twitter", "x profile"])) {
-    return `Twitter/X: ${contact.twitter}`;
-  }
+    return [
+      heading("📬 Contact Info"),
+      fmt("📧 Email", contact.email),
+      fmt("📱 Phone", `+91 ${contact.contactno}`),
+      divider(),
+      fmt("🐙 GitHub", null),
+      url(contact.github),
+      fmt("💼 LinkedIn", null),
+      url(contact.linkedin),
+      fmt("🐦 Twitter/X", null),
+      url(contact.twitter),
+      fmt("📸 Instagram", null),
+      url(contact.instagram),
+    ];
 
   // =========================
-  // LINKS
+  // CONTACT - SPECIFIC
   // =========================
-
   if (
-    includesAny(text, [
+    includesAny(q, ["contact number", "phone number", "mobile number", "phone"])
+  )
+    return [text("Abhi's contact number is"), tag(`+91 ${contact.contactno}`)];
+
+  if (includesAny(q, ["email", "mail"]))
+    return [fmt("📧 Email", contact.email)];
+
+  if (includesAny(q, ["github"]))
+    return [fmt("🐙 GitHub", null), url(contact.github)];
+
+  if (includesAny(q, ["linkedin"]))
+    return [fmt("💼 LinkedIn", null), url(contact.linkedin)];
+
+  if (includesAny(q, ["instagram"]))
+    return [fmt("📸 Instagram", null), url(contact.instagram)];
+
+  if (includesAny(q, ["twitter", "x profile"]))
+    return [fmt("🐦 Twitter/X", null), url(contact.twitter)];
+
+  // =========================
+  // LINKS / NAVIGATION
+  // =========================
+  if (
+    includesAny(q, [
       "project section",
       "projects section",
       "go to projects",
       "open projects",
     ])
-  ) {
+  )
     return "#project";
-  }
 
-  if (includesAny(text, ["contact section", "go to contact", "open contact"])) {
+  if (includesAny(q, ["contact section", "go to contact", "open contact"]))
     return "#contact";
-  }
 
-  if (includesAny(text, ["skills section", "go to skills", "open skills"])) {
+  if (includesAny(q, ["skills section", "go to skills", "open skills"]))
     return "#skill";
-  }
 
-  if (
-    includesAny(text, ["about section", "go to aboutpage", "open aboutsection"])
-  ) {
+  if (includesAny(q, ["about section", "go to aboutpage", "open aboutsection"]))
     return "#about";
-  }
 
   // =========================
   // TOP PROJECTS
   // =========================
-
   if (
-    includesAny(text, [
+    includesAny(q, [
       "top projects",
       "best projects",
       "featured projects",
       "top 3 projects",
     ])
   ) {
-    const topProjects = ProjectData.slice(0, 3)
-      .map((project, index) => `${index + 1}. ${project.title}`)
-      .join("\n");
-
-    return `Abhi's top projects:\n\n${topProjects}`;
+    const top = ProjectData.slice(0, 3);
+    return [
+      heading("🏆 Abhi's Top Projects"),
+      ...top.map((p, i) => numbered(i + 1, p.title)),
+    ];
   }
 
   // =========================
   // TOTAL PROJECTS
   // =========================
-
-  if (
-    includesAny(text, ["how many projects", "total projects", "project count"])
-  ) {
-    return `Abhi has ${ProjectData.length} featured projects in his portfolio.`;
-  }
+  if (includesAny(q, ["how many projects", "total projects", "project count"]))
+    return [
+      text("Abhi has"),
+      tag(`${ProjectData.length} projects`),
+      text("in his portfolio."),
+    ];
 
   // =========================
-  // SPECIFIC PROJECT DETAILS
+  // SPECIFIC PROJECT
   // =========================
-
   const project = ProjectData.find(
     (item) =>
-      text.includes(item.title.toLowerCase()) ||
-      item.title.toLowerCase().includes(text),
+      q.includes(item.title.toLowerCase()) ||
+      item.title.toLowerCase().includes(q),
   );
 
-  if (project) {
-    return `
-Project: ${project.title}
-
-${project.desc}
-
-Live Demo:
-${project.Deploy}
-
-GitHub:
-${project.github}
-`;
-  }
+  if (project)
+    return [
+      heading(`🚀 ${project.title}`),
+      text(project.desc),
+      divider(),
+      fmt("🌐 Live Demo", null),
+      url(project.Deploy),
+      fmt("🐙 GitHub", null),
+      url(project.github),
+    ];
 
   // =========================
   // ABOUT
   // =========================
-
   if (
-    includesAny(text, [
+    includesAny(q, [
       "who is abhi",
       "who is abinash",
       "about abhi",
       "about abinash",
     ])
+  )
+    return [heading("👨‍💻 About Abhi"), text(assistantProfile.summary)];
+
+  // =========================
+  // EDUCATION - BTECH
+  // =========================
+  if (includesAny(q, ["education", "college", "degree", "study", "btech"]))
+    return [
+      heading("🎓 Education"),
+      tag(education.current.degree),
+      fmt("🏫 College", education.current.college),
+      fmt("📌 Status", education.current.status),
+    ];
+
+  // =========================
+  // EDUCATION - HIGHER SECONDARY
+  // =========================
+  if (
+    includesAny(q, [
+      "plus 2",
+      "+2",
+      "higher-secondary",
+      "plus2",
+      "higher secondary",
+    ])
   ) {
-    return assistantProfile.summary;
-  }
-
-  // =========================
-  // EDUCATION
-  // =========================
-
-  if (includesAny(text, ["education", "college", "degree", "study", "btech"])) {
-    return `
-${education.current.degree}
-
-College:
-${education.current.college}
-
-Status:
-${education.current.status}
-`;
+    const { institution, location, percentage } = education.higher_secondary;
+    return [
+      heading("📚 Higher Secondary (+2)"),
+      fmt("🏫 Institution", institution),
+      fmt("📍 Location", location),
+      fmt("📊 Percentage", percentage),
+    ];
   }
 
   // =========================
   // SKILLS
   // =========================
-
-  if (includesAny(text, ["skills", "tech stack", "technologies", "stack"])) {
-    return `
-Tech Stack:
-${formatList(assistantProfile.tech_stack)}
-
-Frontend:
-${formatList(skills.frontend)}
-
-Backend:
-${formatList(skills.backend)}
-
-Database:
-${formatList(skills.database)}
-`;
-  }
+  if (includesAny(q, ["skills", "tech stack", "technologies", "stack"]))
+    return [
+      heading("⚡ Tech Stack"),
+      ...assistantProfile.tech_stack.map((s) => tag(s)),
+      divider(),
+      heading("🎨 Frontend"),
+      ...skills.frontend.map((s) => tag(s)),
+      divider(),
+      heading("🛠 Backend"),
+      ...skills.backend.map((s) => tag(s)),
+      divider(),
+      heading("🗄 Database"),
+      ...skills.database.map((s) => tag(s)),
+    ];
 
   // =========================
   // INTERESTS
   // =========================
-
-  if (
-    includesAny(text, ["interests", "passion", "likes", "ai", "open source"])
-  ) {
-    return `Abhi is interested in ${formatList(assistantProfile.interests)}.`;
-  }
+  if (includesAny(q, ["interests", "passion", "likes", "ai", "open source"]))
+    return [
+      heading("💡 Abhi's Interests"),
+      ...assistantProfile.interests.map((i) => tag(i)),
+    ];
 
   // =========================
   // GENERIC CONTACT
   // =========================
+  if (includesAny(q, ["contact", "connect", "reach"]))
+    return [
+      heading("📬 Contact"),
+      fmt("📧 Email", contact.email),
+      fmt("📱 Phone", `+91 ${contact.contactno}`),
+      fmt("🐙 GitHub", null),
+      url(contact.github),
+      fmt("💼 LinkedIn", null),
+      url(contact.linkedin),
+    ];
 
-  if (includesAny(text, ["contact", "connect", "reach"])) {
-    return `
-Email: ${contact.email}
-
-Phone: +91 ${contact.contactno}
-
-GitHub:
-${contact.github}
-
-LinkedIn:
-${contact.linkedin}
-`;
-  }
-
-  return "I can help with information about Abhi's skills, projects, education, interests, contact details, and portfolio sections.";
+  return [
+    text(
+      "I can help with information about Abhi's skills, projects, education, interests, contact details, and portfolio sections.",
+    ),
+  ];
 };

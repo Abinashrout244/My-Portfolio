@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Send, X, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { answerAssistantQuestion } from "../utils/assistantProfile";
+import { renderMessage } from "../utils/renderMessage";
 
 const starterQuestions = [
   "Who is Abhi?",
@@ -21,8 +22,13 @@ const PortfolioAssistant = () => {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: `✦ I'm Aster, your gateway to Abhi's portfolio.
-Explore his projects, skills, education, experience, and aspirations through a simple conversation. What would you like to discover?`,
+      blocks: [
+        {
+          type: "text",
+          value:
+            "I'm Aster, your gateway to Abhi's portfolio. Explore his projects, skills, education, experience, and aspirations through a simple conversation. What would you like to discover?",
+        },
+      ],
     },
   ]);
 
@@ -38,10 +44,14 @@ Explore his projects, skills, education, experience, and aspirations through a s
     const trimmed = messageText.trim();
     if (!trimmed) return;
 
+    const assistantReply = answerAssistantQuestion(trimmed);
+
     setMessages((current) => [
       ...current,
       { role: "user", text: trimmed },
-      { role: "assistant", text: answerAssistantQuestion(trimmed) },
+      Array.isArray(assistantReply)
+        ? { role: "assistant", blocks: assistantReply }
+        : { role: "assistant", text: assistantReply },
     ]);
     setHasAskedQuestion(true);
     setInput("");
@@ -71,6 +81,25 @@ Explore his projects, skills, education, experience, and aspirations through a s
 
       setIsOpen(false);
     }
+  };
+
+  const renderMessageContent = (message) => {
+    if (Array.isArray(message.blocks)) {
+      return renderMessage(message.blocks);
+    }
+
+    if (typeof message.text === "string" && message.text.startsWith("#")) {
+      return (
+        <button
+          onClick={() => handleNavigation(message.text)}
+          className="font-medium text-red-300 underline"
+        >
+          Open {message.text.replace("#", "")} section
+        </button>
+      );
+    }
+
+    return <p className="whitespace-pre-wrap">{message.text}</p>;
   };
 
   return (
@@ -115,7 +144,9 @@ Explore his projects, skills, education, experience, and aspirations through a s
               {messages.map((message, index) => (
                 <div
                   key={`${message.role}-${index}`}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${
+                    message.role === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
                     className={`max-w-[84%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
@@ -124,19 +155,11 @@ Explore his projects, skills, education, experience, and aspirations through a s
                         : "bg-white/10 text-white/82"
                     }`}
                   >
-                    {message.text.startsWith("#") ? (
-                      <button
-                        onClick={() => handleNavigation(message.text)}
-                        className="font-medium text-red-300 underline"
-                      >
-                        Open {message.text.replace("#", "")} section
-                      </button>
-                    ) : (
-                      message.text
-                    )}
+                    {renderMessageContent(message)}
                   </div>
                 </div>
               ))}
+
               <div ref={messagesEndRef} aria-hidden="true" />
             </div>
 
@@ -189,7 +212,11 @@ Explore his projects, skills, education, experience, and aspirations through a s
         whileHover={{ scale: 1.06, y: -2 }}
         whileTap={{ scale: 0.94 }}
         aria-label={isOpen ? "Close Abhi's assistant" : "Open Abhi's assistant"}
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full border border-red-300/30 bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.35)]"
+        className="
+    relative ml-auto flex h-14 w-14 items-center justify-center rounded-full
+    bg-red-600 text-white
+    ring-2 ring-red-500/40 ring-offset-2 ring-offset-[#0f0f0f]
+  "
       >
         {isOpen ? <X size={22} /> : <Bot size={24} />}
       </motion.button>
