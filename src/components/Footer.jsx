@@ -44,6 +44,12 @@ const getSocials = (isDark) => {
       icon: `https://img.icons8.com/?size=100&id=9L16NypUzu38&format=png&color=${c}`,
       link: "https://leetcode.com/u/Abinash_90/",
     },
+    {
+      id: 6,
+      label: "Whatshapp",
+      icon: `https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg`,
+      link: "https://wa.me/918249281685?text=Hi%20Binash,%20I%20found%20your%20portfolio.",
+    },
   ];
 };
 
@@ -66,9 +72,21 @@ const footerLinks = [
 ];
 
 const contactItems = [
-  { icon: faEnvelope, text: "routabinash3775@gmail.com" },
-  { icon: faPhone, text: "+91 82492 81685" },
-  { icon: faLocationDot, text: "Jajpur, Odisha, India" },
+  {
+    icon: faEnvelope,
+    text: "routabinash3775@gmail.com",
+    link: "mailto:routabinash3775@gmail.com",
+  },
+  {
+    icon: faPhone,
+    text: "+91 8249281685",
+    link: "tel:+918249281685",
+  },
+  {
+    icon: faLocationDot,
+    text: "Jajpur, Odisha, India",
+    link: "https://maps.app.goo.gl/iZRkvhscvaB9tPJx9",
+  },
 ];
 
 const Footer = () => {
@@ -154,30 +172,30 @@ const Footer = () => {
             <span className="text-[#7F77DD]">delivered to you.</span>
           </h3>
         </div>
-<form
-  onSubmit={handleSubscribe}
-  className="flex flex-col sm:flex-row gap-2 w-full max-w-md"
->
-  <input
-    type="email"
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    placeholder="your@email.com"
-    disabled={status === "loading" || status === "success"}
-    className={`flex-1 min-w-0 h-10 sm:h-auto py-3 sm:py-0 px-4 text-sm rounded-lg border outline-none transition-all focus:border-[#7F77DD] ${
-      isDark
-        ? "bg-[#1e1e1e] border-white/10 text-white placeholder:text-gray-600"
-        : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
-    }`}
-  />
-  <button
-    type="submit"
-    disabled={status === "loading" || status === "success"}
-    className={`h-10 px-5 rounded-lg text-sm font-medium text-white transition-all whitespace-nowrap sm:shrink-0 w-full sm:w-auto ${btnClass}`}
-  >
-    {btnLabel}
-  </button>
-</form>
+        <form
+          onSubmit={handleSubscribe}
+          className="flex flex-col sm:flex-row gap-2 w-full max-w-md"
+        >
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="your@email.com"
+            disabled={status === "loading" || status === "success"}
+            className={`flex-1 min-w-0 h-10 sm:h-auto py-3 sm:py-0 px-4 text-sm rounded-lg border outline-none transition-all focus:border-[#7F77DD] ${
+              isDark
+                ? "bg-[#1e1e1e] border-white/10 text-white placeholder:text-gray-600"
+                : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+            }`}
+          />
+          <button
+            type="submit"
+            disabled={status === "loading" || status === "success"}
+            className={`h-10 px-5 rounded-lg text-sm font-medium text-white transition-all whitespace-nowrap sm:shrink-0 w-full sm:w-auto ${btnClass}`}
+          >
+            {btnLabel}
+          </button>
+        </form>
 
         {/* Status message below form */}
         {status === "success" && (
@@ -232,35 +250,44 @@ const Footer = () => {
           <ColumnTitle isDark={isDark}>Contact</ColumnTitle>
           <ul className="flex flex-col gap-3">
             {contactItems.map((item, i) => (
-              <li
-                key={i}
-                className="flex items-center gap-3 group cursor-pointer"
-              >
-                <div
-                  className={`w-[34px] h-[34px] rounded-lg border flex items-center justify-center flex-shrink-0 transition-all ${
-                    isDark
-                      ? "bg-[#1a1a1a] border-white/5 group-hover:border-[#7F77DD]/50 group-hover:bg-[#1e1b3a]"
-                      : "bg-gray-50 border-gray-100 group-hover:border-[#7F77DD]/50 group-hover:bg-[#EEEDFE]"
-                  }`}
+              <li key={i}>
+                <a
+                  href={item.link}
+                  target={item.link.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    item.link.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="flex items-center gap-3 group cursor-pointer"
                 >
-                  <FontAwesomeIcon
-                    icon={item.icon}
+                  <div
+                    className={`w-[34px] h-[34px] rounded-lg border flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                      isDark
+                        ? "bg-[#1a1a1a] border-white/5 group-hover:border-[#7F77DD]/50 group-hover:bg-[#1e1b3a]"
+                        : "bg-gray-50 border-gray-100 group-hover:border-[#7F77DD]/50 group-hover:bg-[#EEEDFE]"
+                    }`}
+                  >
+                    <FontAwesomeIcon
+                      icon={item.icon}
+                      className={`text-sm transition-colors ${
+                        isDark
+                          ? "text-gray-500 group-hover:text-[#7F77DD]"
+                          : "text-gray-400 group-hover:text-[#534AB7]"
+                      }`}
+                    />
+                  </div>
+
+                  <span
                     className={`text-sm transition-colors ${
                       isDark
-                        ? "text-gray-500 group-hover:text-[#7F77DD]"
-                        : "text-gray-400 group-hover:text-[#534AB7]"
+                        ? "text-gray-500 group-hover:text-gray-200"
+                        : "text-gray-400 group-hover:text-gray-700"
                     }`}
-                  />
-                </div>
-                <span
-                  className={`text-sm transition-colors ${
-                    isDark
-                      ? "text-gray-500 group-hover:text-gray-200"
-                      : "text-gray-400 group-hover:text-gray-700"
-                  }`}
-                >
-                  {item.text}
-                </span>
+                  >
+                    {item.text}
+                  </span>
+                </a>
               </li>
             ))}
           </ul>

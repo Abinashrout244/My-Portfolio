@@ -1,89 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { useTheme } from "../context/ThemeContext";
+import EducationModal from "./EducationModal";
+import educationData from "../data/educationData";
 import {
   Building2,
   MapPin,
   CalendarDays,
   Award,
-  GraduationCap,
-  BookOpen,
-  School,
   ExternalLink,
+  ArrowUpRight,
+  Sparkles,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────
    EDUCATION DATA — easy to customise
-───────────────────────────────────────────── */
-const educationData = [
-  {
-    id: 1,
-    type: "B.Tech",
-    degree: "Bachelor of Technology",
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    field: "Computer Science & Engineering",
-    institution: "Oxford College Of Engineering & Management",
-    location: "Bhubaneswar, Odisha",
-    duration: "2024 – 2028",
-    grade: "8.7 CGPA",
-    gradeLabel: "CGPA",
-    isCurrent: true,
-    icon: <GraduationCap size={28} strokeWidth={2.2} />,
-    color: {
-      light: "from-pink-500 to-indigo-500",
-      dark: "from-pink-400 to-indigo-400",
-    },
-    glowLight: "rgba(236,72,153,0.25)",
-    glowDark: "rgba(236,72,153,0.18)",
-  },
-  {
-    id: 2,
-    type: "12th",
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    degree: "Higher Secondary Certificate",
-    field: "Science (PCM)",
-    institution: "Shanti Institute of Management & Higher Secondary School",
-    location: "CDA-10, Cuttack, Odisha",
-
-    duration: "2023 – 2024",
-    grade: "86%",
-    gradeLabel: "Percentage",
-    isCurrent: false,
-    icon: <BookOpen size={28} strokeWidth={2.2} />,
-    color: {
-      light: "from-indigo-500 to-cyan-500",
-      dark: "from-indigo-400 to-cyan-400",
-    },
-    glowLight: "rgba(99,102,241,0.25)",
-    glowDark: "rgba(99,102,241,0.18)",
-  },
-  {
-    id: 3,
-    type: "10th",
-    degree: "Secondary School Certificate",
-    field: "General Studies",
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    institution: "Baghua Brahmani Devi High School, Baghua",
-    location: "Balishai, Jajpur",
-    duration: "2021 – 2022",
-    grade: "85%",
-    gradeLabel: "Percentage",
-    isCurrent: false,
-    icon: <School size={28} strokeWidth={2.2} />,
-    color: {
-      light: "from-cyan-500 to-emerald-500",
-      dark: "from-cyan-400 to-emerald-400",
-    },
-    glowLight: "rgba(6,182,212,0.25)",
-    glowDark: "rgba(6,182,212,0.18)",
-  },
-];
-
-/* ─────────────────────────────────────────────
-   FLOATING PARTICLE
 ───────────────────────────────────────────── */
 const Particle = ({ isDark, index }) => {
   const colors = isDark
@@ -137,45 +68,46 @@ const Particle = ({ isDark, index }) => {
 /* ─────────────────────────────────────────────
    TIMELINE DOT
 ───────────────────────────────────────────── */
-const TimelineDot = ({ item, isDark, isActive, onClick }) => (
-  <motion.button
-    onClick={onClick}
-    aria-label={`View ${item.degree}`}
-    whileHover={{ scale: 1.15 }}
-    whileTap={{ scale: 0.95 }}
-    className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full z-10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
-    style={{
-      background: isDark
-        ? "linear-gradient(135deg, #1e1e1e, #2a2a2a)"
-        : "linear-gradient(135deg, rgba(15,23,42,0.9), rgba(10,26,58,0.9))",
-      boxShadow: isActive
-        ? isDark
-          ? `0 0 20px ${item.glowDark}, 0 0 40px ${item.glowDark}`
-          : `0 0 24px ${item.glowLight}, 0 0 48px ${item.glowLight}`
-        : "none",
-      border: `2px solid ${isActive ? (isDark ? "rgba(236,72,153,0.6)" : "rgba(236,72,153,0.8)") : isDark ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.2)"}`,
-    }}
-  >
-    <span className="text-xl md:text-2xl leading-none select-none">
-      {item.icon}
-    </span>
-    {/* Pulse ring on active */}
-    {isActive && (
-      <motion.span
-        className="absolute inset-0 rounded-full"
-        style={{
-          border: `2px solid ${isDark ? item.glowDark : item.glowLight}`,
-        }}
-        animate={{ scale: [1, 1.6, 1.6], opacity: [0.8, 0, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      />
-    )}
-  </motion.button>
-);
+const TimelineDot = ({ item, isDark, isActive, onClick }) => {
+  const Icon = item.icon;
 
-/* ─────────────────────────────────────────────
-   INFO ROW
-───────────────────────────────────────────── */
+  return (
+    <motion.button
+      onClick={onClick}
+      aria-label={`View ${item.degree}`}
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.95 }}
+      className="relative flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full z-10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+      style={{
+        background: isDark
+          ? "linear-gradient(135deg, #1e1e1e, #2a2a2a)"
+          : "linear-gradient(135deg, rgba(15,23,42,0.9), rgba(10,26,58,0.9))",
+        boxShadow: isActive
+          ? isDark
+            ? `0 0 20px ${item.glowDark}, 0 0 40px ${item.glowDark}`
+            : `0 0 24px ${item.glowLight}, 0 0 48px ${item.glowLight}`
+          : "none",
+        border: `2px solid ${isActive ? (isDark ? "rgba(236,72,153,0.6)" : "rgba(236,72,153,0.8)") : isDark ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.2)"}`,
+      }}
+    >
+      <span className="text-xl md:text-2xl leading-none select-none">
+        <Icon size={28} strokeWidth={2.2} />
+      </span>
+      {/* Pulse ring on active */}
+      {isActive && (
+        <motion.span
+          className="absolute inset-0 rounded-full"
+          style={{
+            border: `2px solid ${isDark ? item.glowDark : item.glowLight}`,
+          }}
+          animate={{ scale: [1, 1.6, 1.6], opacity: [0.8, 0, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      )}
+    </motion.button>
+  );
+};
+
 const InfoRow = ({ icon, iconClass, label, value, isDark }) => (
   <div className="flex items-center gap-3">
     <span
@@ -207,7 +139,14 @@ const InfoRow = ({ icon, iconClass, label, value, isDark }) => (
 /* ─────────────────────────────────────────────
    EDUCATION CARD
 ───────────────────────────────────────────── */
-const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
+const EducationCard = ({
+  item,
+  index,
+  isDark,
+  isActive,
+  onClick,
+  onDetails,
+}) => {
   const cardRef = useRef(null);
   const inView = useInView(cardRef, { once: true, amount: 0.2 });
 
@@ -406,22 +345,32 @@ const EducationCard = ({ item, index, isDark, isActive, onClick }) => {
 
             <span>View Certificate</span>
           </motion.a>
-
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             onClick={(e) => {
               e.stopPropagation();
-              onClick();
+              onDetails();
             }}
-            className={`px-5 py-3 rounded-2xl border font-semibold transition-all duration-300
-      ${
-        isDark
-          ? "border-white/10 bg-white/5 hover:bg-white/10 text-white"
-          : "border-white/20 bg-white/10 hover:bg-white/20 text-white"
-      }`}
+            className={`group relative overflow-hidden rounded-xl px-5 py-3
+    border flex items-center justify-center gap-3
+    ${
+      isDark
+        ? "bg-white/5 border-white/10 text-white"
+        : "bg-white/10 border-white/20 text-white"
+    }`}
           >
-            Details
+            <Sparkles
+              size={18}
+              className="text-pink-400 transition-transform duration-300 group-hover:rotate-180"
+            />
+
+            <span className="font-semibold tracking-wide">Explore Journey</span>
+
+            <ArrowUpRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
           </motion.button>
         </div>
       </div>
@@ -436,6 +385,7 @@ const Education = () => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [activeId, setActiveId] = useState(1);
+  const [selectedEducation, setSelectedEducation] = useState(null);
   const sectionRef = useRef(null);
   const timelineRef = useRef(null);
 
@@ -633,6 +583,7 @@ const Education = () => {
                     isDark={isDark}
                     isActive={activeId === item.id}
                     onClick={() => setActiveId(item.id)}
+                    onDetails={() => setSelectedEducation(item)}
                   />
                 </div>
               </div>
@@ -650,6 +601,12 @@ const Education = () => {
             ? "linear-gradient(to top, #121212, transparent)"
             : "linear-gradient(to top, #050510, transparent)",
         }}
+      />
+      <EducationModal
+        isOpen={Boolean(selectedEducation)}
+        onClose={() => setSelectedEducation(null)}
+        item={selectedEducation}
+        isDark={isDark}
       />
     </section>
   );
