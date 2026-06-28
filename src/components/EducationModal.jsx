@@ -13,6 +13,7 @@ import {
   Download,
   CheckCircle2,
 } from "lucide-react";
+import CertificatePreview from "./CertificatePreview";
 
 const getModalContent = (item) =>
   item?.details ?? {
@@ -68,6 +69,7 @@ const DocButton = ({ href, label, icon: Icon, download: dl }) => (
 
 const EducationModal = ({ isOpen, onClose, item, isDark }) => {
   const [renderItem, setRenderItem] = useState(item);
+  const [previewDocument, setPreviewDocument] = useState(null);
 
   useEffect(() => {
     if (item) setRenderItem(item);
@@ -91,11 +93,28 @@ const EducationModal = ({ isOpen, onClose, item, isDark }) => {
     return () => window.clearTimeout(id);
   }, [isOpen, renderItem]);
 
+  useEffect(() => {
+    if (!previewDocument) return undefined;
+    const onKey = (e) => e.key === "Escape" && setPreviewDocument(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [previewDocument]);
+
   if (typeof document === "undefined" || !renderItem) return null;
 
   const content = getModalContent(renderItem);
   const gradientBar = isDark ? renderItem.color.dark : renderItem.color.light;
   const Icon = renderItem.icon;
+  const documents = renderItem.documents?.length
+    ? renderItem.documents
+    : [
+        {
+          id: "certificate",
+          label: "Certificate",
+          kind: "Certificate",
+          image: renderItem.certificateImage ?? renderItem.certificate,
+        },
+      ];
 
   const stats = [
     { label: renderItem.gradeLabel, value: renderItem.grade },
@@ -128,7 +147,9 @@ const EducationModal = ({ isOpen, onClose, item, isDark }) => {
               boxShadow: `0 0 0 1px ${renderItem.glowLight ?? "rgba(99,102,241,0.15)"}`,
             }}
           >
-            <div className={`h-[3px] w-full shrink-0 bg-gradient-to-r ${gradientBar}`} />
+            <div
+              className={`h-[3px] w-full shrink-0 bg-gradient-to-r ${gradientBar}`}
+            />
 
             <div className="flex items-start justify-between gap-4 border-b border-white/[0.07] px-5 py-5 sm:px-6">
               <div className="flex items-start gap-4">
@@ -179,10 +200,26 @@ const EducationModal = ({ isOpen, onClose, item, isDark }) => {
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                <InfoChip icon={MapPin} label="Location" value={renderItem.location} />
-                <InfoChip icon={CalendarDays} label="Duration" value={renderItem.duration} />
-                <InfoChip icon={Award} label={renderItem.gradeLabel} value={renderItem.grade} />
-                <InfoChip icon={GraduationCap} label="Type" value={renderItem.type} />
+                <InfoChip
+                  icon={MapPin}
+                  label="Location"
+                  value={renderItem.location}
+                />
+                <InfoChip
+                  icon={CalendarDays}
+                  label="Duration"
+                  value={renderItem.duration}
+                />
+                <InfoChip
+                  icon={Award}
+                  label={renderItem.gradeLabel}
+                  value={renderItem.grade}
+                />
+                <InfoChip
+                  icon={GraduationCap}
+                  label="Type"
+                  value={renderItem.type}
+                />
               </div>
 
               <div>
@@ -236,8 +273,14 @@ const EducationModal = ({ isOpen, onClose, item, isDark }) => {
                 </p>
                 <div className="flex flex-col gap-2">
                   {content.achievements.map((a) => (
-                    <div key={a} className="flex items-start gap-2.5 text-sm text-white/70">
-                      <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400" />
+                    <div
+                      key={a}
+                      className="flex items-start gap-2.5 text-sm text-white/70"
+                    >
+                      <CheckCircle2
+                        size={15}
+                        className="mt-0.5 shrink-0 text-emerald-400"
+                      />
                       {a}
                     </div>
                   ))}
@@ -245,31 +288,49 @@ const EducationModal = ({ isOpen, onClose, item, isDark }) => {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] px-5 py-4 sm:px-6">
-              <div className="flex flex-wrap gap-2">
-                <DocButton href={renderItem.certificate} label="Certificate" icon={ExternalLink} />
-                {renderItem.marksheet && (
-                  <DocButton href={renderItem.marksheet} label="Marksheet" icon={FileText} />
-                )}
-                {renderItem.resume && (
-                  <DocButton href={renderItem.resume} label="Resume" icon={Download} dl />
-                )}
-              </div>
 
-              <motion.a
-                href={renderItem.certificate}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`inline-flex items-center gap-2 rounded-xl bg-gradient-to-r px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider text-white ${gradientBar}`}
-              >
-                <Layers size={14} />
-                View certificate
-              </motion.a>
+            <div className="border-t border-white/[0.07] px-5 py-4 sm:px-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-white/40">
+                Documents
+              </p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {documents.map((document) => (
+                  <button
+                    key={document.id}
+                    type="button"
+                    onClick={() => setPreviewDocument(document)}
+                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-pink-400/30 hover:bg-white/[0.08]"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/20">
+                      <img
+                        src={document.image}
+                        alt={document.label}
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-white">
+                        {document.label}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-white/35">
+                        {document.kind}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.div>
+      )}
+
+      {previewDocument && (
+        <CertificatePreview
+          item={renderItem}
+          document={previewDocument}
+          isDark={isDark}
+          onClose={() => setPreviewDocument(null)}
+        />
       )}
     </AnimatePresence>,
     document.body,

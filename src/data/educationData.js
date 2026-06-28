@@ -1,4 +1,11 @@
 import { GraduationCap, BookOpen, School } from "lucide-react";
+import tenthCertificateImage from "../assets/images/10th CERTIFICATE (FRONT).jpg";
+import plusTwoCertificateImage from "../assets/images/plus2.jpg";
+import secondSemesterImage from "../assets/images/2nd year.jpg";
+import btechFirstYearMarksheetImage from "../assets/images/BETCH FIRSTYEAR MARKSHEET.jpg";
+import plusTwoMarksheetImage from "../assets/images/PLUS2 MARKSHEET.jpg";
+import htmlCssCertificateImage from "../assets/images/HTML & CSS.jpg";
+import javascriptCertificateImage from "../assets/images/JAVASCRIPTcertificate.webp.png";
 
 const educationData = [
   {
@@ -11,12 +18,35 @@ const educationData = [
     duration: "2024 - 2028",
     grade: "8.7 CGPA",
     gradeLabel: "CGPA",
-    currentSemester: "5rd Semester",
+    currentSemester: "5th Semester",
     isCurrent: true,
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    marksheet:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
+    certificateImage: secondSemesterImage,
+    documents: [
+      {
+        id: "btech-year-1",
+        label: "First Year Marksheet",
+        kind: "Marksheet",
+        image: btechFirstYearMarksheetImage,
+      },
+      {
+        id: "btech-year-2",
+        label: "Second Year Certificate",
+        kind: "Certificate",
+        image: secondSemesterImage,
+      },
+      {
+        id: "btech-html-css",
+        label: "HTML & CSS Certificate",
+        kind: "Certificate",
+        image: htmlCssCertificateImage,
+      },
+      {
+        id: "btech-javascript",
+        label: "JavaScript Certificate",
+        kind: "Certificate",
+        image: javascriptCertificateImage,
+      },
+    ],
     icon: GraduationCap,
     color: {
       light: "from-pink-500 to-indigo-500",
@@ -56,10 +86,21 @@ const educationData = [
     grade: "86%",
     gradeLabel: "Percentage",
     isCurrent: false,
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    marksheet:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
+    certificateImage: plusTwoMarksheetImage,
+    documents: [
+      {
+        id: "plus2-certificate",
+        label: "Higher Secondary Certificate",
+        kind: "Certificate",
+        image: plusTwoCertificateImage,
+      },
+      {
+        id: "plus2-marksheet",
+        label: "Plus 2 Marksheet",
+        kind: "Marksheet",
+        image: plusTwoMarksheetImage,
+      },
+    ],
     icon: BookOpen,
     color: {
       light: "from-indigo-500 to-cyan-500",
@@ -111,10 +152,15 @@ const educationData = [
     grade: "85%",
     gradeLabel: "Percentage",
     isCurrent: false,
-    certificate:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
-    marksheet:
-      "https://drive.google.com/file/d/3CdEfGhIjKlMnOpQrStUvWxYzAb/view?usp=sharing",
+    certificateImage: tenthCertificateImage,
+    documents: [
+      {
+        id: "10th-certificate",
+        label: "10th Certificate",
+        kind: "Certificate",
+        image: tenthCertificateImage,
+      },
+    ],
     icon: School,
     color: {
       light: "from-cyan-500 to-emerald-500",

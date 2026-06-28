@@ -1,13 +1,21 @@
 import React, { useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "motion/react";
 import { useTheme } from "../context/ThemeContext";
 import EducationModal from "./EducationModal";
+import CertificatePreview from "./CertificatePreview";
 import educationData from "../data/educationData";
 import {
   Building2,
   MapPin,
   CalendarDays,
   Award,
+  X,
   ExternalLink,
   ArrowUpRight,
   Sparkles,
@@ -145,6 +153,7 @@ const EducationCard = ({
   isDark,
   isActive,
   onClick,
+  onCertificate,
   onDetails,
 }) => {
   const cardRef = useRef(null);
@@ -327,13 +336,14 @@ const EducationCard = ({
 
         {/* Bottom Actions */}
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <motion.a
+          <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            href={item.certificate}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onCertificate();
+            }}
             className={`group flex-1 flex items-center justify-center gap-2 rounded-2xl px-5 py-3
       bg-gradient-to-r ${isDark ? item.color.dark : item.color.light}
       text-white font-semibold shadow-lg transition-all duration-300`}
@@ -342,9 +352,8 @@ const EducationCard = ({
               size={18}
               className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
-
             <span>View Certificate</span>
-          </motion.a>
+          </motion.button>
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
@@ -386,6 +395,7 @@ const Education = () => {
   const isDark = theme === "dark";
   const [activeId, setActiveId] = useState(1);
   const [selectedEducation, setSelectedEducation] = useState(null);
+  const [previewEducation, setPreviewEducation] = useState(null);
   const sectionRef = useRef(null);
   const timelineRef = useRef(null);
 
@@ -583,6 +593,7 @@ const Education = () => {
                     isDark={isDark}
                     isActive={activeId === item.id}
                     onClick={() => setActiveId(item.id)}
+                    onCertificate={() => setPreviewEducation(item)}
                     onDetails={() => setSelectedEducation(item)}
                   />
                 </div>
@@ -608,6 +619,13 @@ const Education = () => {
         item={selectedEducation}
         isDark={isDark}
       />
+      {previewEducation && (
+        <CertificatePreview
+          item={previewEducation}
+          isDark={isDark}
+          onClose={() => setPreviewEducation(null)}
+        />
+      )}
     </section>
   );
 };

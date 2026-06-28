@@ -352,7 +352,7 @@ const About = () => {
                 {"  "}
                 {va("experience")}
                 {pu(": ")}
-                {st('"Freshers"')}
+                {st('"Fresher"')}
                 {pu(",")}
               </CodeLine>
               <CodeLine lineNum={8}>
